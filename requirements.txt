@@ -6,3 +6,8 @@ seaborn
 jupyter
 notebook
 ipykernel
+python-dotenv
+sqlalchemy
+pymysql
+python-json-logger
+requests
