@@ -130,6 +130,11 @@ def main(apply: bool, limit: int | None) -> None:
                 "CHECKSUM OK — committed. Moved %d record(s) to %s.", moved, _TARGET
             )
 
+            # Re-query after commit — now sees all concurrent inserts that landed during our run
+            post_commit_count = _count(conn)
+            post_commit_max_id = _max_id(conn)
+            concurrent_inserts = post_commit_count - (pre_count - moved)
+
             # Update CSV files to reflect what was moved
             moved_set = set(moved_ids)
             newly_moved = full_df[full_df["id"].isin(moved_set)]
@@ -155,7 +160,7 @@ def main(apply: bool, limit: int | None) -> None:
             print(f"  Removed  : {moved:,} record(s) moved to {_TARGET}")
             if concurrent_inserts:
                 print(f"  New rows : {concurrent_inserts:,} new subscriber(s) inserted during run")
-            print(f"  Post-run : count = {post_count:,}   max_id = {_max_id(conn):,}")
+            print(f"  Post-run : count = {post_commit_count:,}   max_id = {post_commit_max_id:,}")
             print(f"  Checksum : OK")
             print("-" * 60)
             print(f"  CSV      : {len(remaining):,} row(s) remaining in {_JUNK_CSV.name}")
