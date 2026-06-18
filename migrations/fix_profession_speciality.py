@@ -133,6 +133,11 @@ _MAX_SPECIALTIES_TRUST = 3
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
+def _norm_name(name: str) -> str:
+    """Normalise a specialty name for comparison: lowercase and replace & with and."""
+    return name.lower().replace("&", "and").replace("  ", " ").strip()
+
+
 def _is_set(value) -> bool:
     """True when value is non-null, non-empty, and non-zero."""
     if value is None:
@@ -411,7 +416,7 @@ def build_name_lookups(combined: list[dict]) -> tuple[dict, dict]:
         sid   = entry.get("specialty_id")
         sname = (entry.get("specialty_name") or "").strip()
         if sid and sname:
-            key = sname.lower()
+            key = _norm_name(sname)
             if key not in spec_by_name:
                 spec_by_name[key] = (sid, {
                     "name": sname,
@@ -421,7 +426,7 @@ def build_name_lookups(combined: list[dict]) -> tuple[dict, dict]:
         ssid   = entry.get("subspecialty_id")
         ssname = (entry.get("subspecialty_name") or "").strip()
         if ssid and ssname:
-            key = ssname.lower()
+            key = _norm_name(ssname)
             if key not in subspec_by_name:
                 subspec_by_name[key] = []
             # Avoid duplicates (same ssid can appear in multiple CSV rows)
@@ -793,7 +798,7 @@ def analyze_record(
                 map_info   = parent_map
             elif db_info:
                 # Rule 3: name-based match
-                name_key   = db_name.lower()
+                name_key   = _norm_name(db_name)
                 spec_hit   = spec_name_lookup.get(name_key)
                 if spec_hit:
                     match_kind     = "name_match"

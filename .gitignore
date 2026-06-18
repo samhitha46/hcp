@@ -44,6 +44,8 @@ data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!data/input/physician_md_do.csv
+!data/input/physician_dpm.csv
 
 # Model artifacts
 *.model

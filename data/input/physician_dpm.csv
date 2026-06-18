@@ -1,0 +1,19 @@
+Code,Grouping,Classification,Specialization,eMed_Profession,Not DPM,eMed_Profession_type,DPM,eMed_Speciality,eMed_Speciality_ID,Comments,eMed_SubSpeciality,eMed_SubSpeciality_ID,Comments
+211D00000X,Podiatric Medicine & Surgery Service Providers,"Assistant, Podiatric",,Physician,167,DPM,357,"Assistant, Podiatric",,Need to add and map,,,
+213E00000X,Podiatric Medicine & Surgery Service Providers,Podiatrist,,Physician,167,DPM,357,Podiatrist,207,,,,
+213ES0103X,Podiatric Medicine & Surgery Service Providers,Podiatrist,Foot & Ankle Surgery,Physician,167,DPM,357,Podiatrist,207,,Podiatry - Foot & Ankle Surgery,862,
+213ES0131X,Podiatric Medicine & Surgery Service Providers,Podiatrist,Foot Surgery,Physician,167,DPM,357,Podiatrist,207,,Foot Surgery,,Need to add and map
+213EG0000X,Podiatric Medicine & Surgery Service Providers,Podiatrist,General Practice,Physician,167,DPM,357,Podiatrist,207,,General Practice,,Need to add and map
+213EP1101X,Podiatric Medicine & Surgery Service Providers,Podiatrist,Primary Podiatric Medicine,Physician,167,DPM,357,Podiatrist,207,,Primary Podiatric Medicine,,Need to add and map
+213EP0504X,Podiatric Medicine & Surgery Service Providers,Podiatrist,Public Medicine,Physician,167,DPM,357,Podiatrist,207,,Public Medicine,,Need to add and map
+213ER0200X,Podiatric Medicine & Surgery Service Providers,Podiatrist,Radiology,Physician,167,DPM,357,Podiatrist,207,,Radiology,,Need to add and map
+213ES0000X,Podiatric Medicine & Surgery Service Providers,Podiatrist,Sports Medicine,Physician,167,DPM,357,Podiatrist,207,,Sports Podiatry,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Podiatric Orthopedics,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Reconstructive Ankle Surgery,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Diabetic Foot Care,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Podiatric Wound Care,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Limb Salvage,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Pediatric Podiatry,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Podiatric Dermatology,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Podiatric Biomechanics,,Need to add and map
+,,,,Physician,167,DPM,357,Podiatrist,207,,Podiatric Trauma,,Need to add and map
