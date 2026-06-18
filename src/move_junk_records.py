@@ -15,8 +15,11 @@ Run from the repo root:
 """
 
 import argparse
+import os
 import sys
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
 from sqlalchemy import text
@@ -62,11 +65,11 @@ def main(apply: bool, limit: int | None) -> None:
     logger.info("Records: %d", len(ids))
 
     if not apply:
-        logger.info("[DRY RUN] Would move %d record(s): %s → %s", len(ids), _SOURCE, _TARGET)
+        logger.info("[DRY RUN] Would move %d record(s): %s -> %s", len(ids), _SOURCE, _TARGET)
         for rid in ids:
             logger.info(
                 "[DRY RUN]   id=%-8s  INSERT INTO %s SELECT * FROM %s WHERE id=%s"
-                "  →  DELETE FROM %s WHERE id=%s",
+                "  ->  DELETE FROM %s WHERE id=%s",
                 rid, _TARGET, _SOURCE, rid, _SOURCE, rid,
             )
         logger.info("[DRY RUN] No changes made. Re-run with --apply to execute.")

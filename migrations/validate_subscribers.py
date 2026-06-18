@@ -1,7 +1,10 @@
 import argparse
+import os
 import sys
 import time
 from datetime import date, datetime
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
 import requests
