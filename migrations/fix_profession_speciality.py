@@ -31,9 +31,10 @@ from src.logger import get_logger
 
 logger = get_logger(__name__)
 
-_INPUT_DIR = Path(__file__).parent.parent / "data" / "input"
-_MD_DO_CSV = _INPUT_DIR / "physician_md_do.csv"
-_DPM_CSV   = _INPUT_DIR / "physician_dpm.csv"
+_INPUT_DIR        = Path(__file__).parent.parent / "data" / "input"
+_MD_DO_CSV        = _INPUT_DIR / "physician_md_do.csv"
+_DPM_CSV          = _INPUT_DIR / "physician_dpm.csv"
+_ID_OVERRIDES_CSV = _INPUT_DIR / "specialty_id_overrides.csv"
 
 _DPM_PROFESSION_TYPE_ID = 357
 _MD_PROFESSION_TYPE_ID  = 184
@@ -121,7 +122,17 @@ _OUTPUT_COLUMNS = [
     "parent_profession_id_recommended",
     "profession_type_id_recommended",
     "specialty_ids_recommended",
+    "subscription_status",
+    "email_status",
 ]
+
+_SUBSCRIPTION_STATUS_MAP = {
+    0: "Unknown",
+    1: "Subscribed",
+    2: "Unsubscribed",
+    3: "Bounced",
+    4: "Dropped",
+}
 
 _NPPES_URL   = "https://npiregistry.cms.hhs.gov/api/"
 _NPPES_DELAY = 0.4   # seconds between calls — stays within ~2 req/sec
@@ -474,6 +485,31 @@ def build_taxonomy_lookup(combined: list[dict]) -> dict:
     return lookup
 
 
+def load_id_overrides() -> dict[int, int]:
+    """
+    Load manual specialty-ID overrides from specialty_id_overrides.csv.
+
+    Returns a dict mapping original_id (DB) → mapped_id (eMed map).
+    Each row in the CSV must have at minimum: original_id, mapped_id.
+    The optional 'notes' column is logged but not used in matching.
+    """
+    if not _ID_OVERRIDES_CSV.exists():
+        logger.info("No specialty_id_overrides.csv found — skipping manual overrides.")
+        return {}
+
+    df = pd.read_csv(_ID_OVERRIDES_CSV, dtype=str)
+    df.columns = df.columns.str.strip()
+    overrides = {}
+    for _, row in df.iterrows():
+        orig = _to_int(row.get("original_id"))
+        mapped = _to_int(row.get("mapped_id"))
+        if orig is not None and mapped is not None:
+            overrides[orig] = mapped
+            logger.debug("Override loaded: DB ID %d → eMed ID %d  (%s)", orig, mapped, row.get("notes", ""))
+
+    logger.info("Manual ID overrides loaded: %d entry/entries from %s", len(overrides), _ID_OVERRIDES_CSV.name)
+    return overrides
+
 
 def fetch_candidates(exclude_ids: set[int], limit: int | None, order_desc: bool = False) -> pd.DataFrame:
     """
@@ -489,7 +525,8 @@ def fetch_candidates(exclude_ids: set[int], limit: int | None, order_desc: bool 
         df = pd.read_csv(
             _CACHE_CSV,
             dtype={"id": "Int64", "profession_parent_id": "Int64", "profession_type_id": "Int64",
-                   "firstname": str, "lastname": str, "specialty_ids": str},
+                   "firstname": str, "lastname": str, "specialty_ids": str,
+                   "subscription_status": "Int64", "email_status": str},
         )
         # Replace pandas <NA> strings that come from nullable int columns
         df["specialty_ids"] = df["specialty_ids"].where(df["specialty_ids"].notna(), other=None)
@@ -498,7 +535,8 @@ def fetch_candidates(exclude_ids: set[int], limit: int | None, order_desc: bool 
         logger.info("No cache file — querying %s ...", _SOURCE_TABLE)
         pid_list = ", ".join(str(p) for p in _PROFESSION_PARENT_IDS)
         query = text(f"""
-            SELECT id, firstname, lastname, profession_parent_id, profession_type_id, specialty_ids
+            SELECT id, firstname, lastname, profession_parent_id, profession_type_id,
+                   specialty_ids, subscription_status, email_status
             FROM `{_SOURCE_TABLE}`
             WHERE profession_parent_id IN ({pid_list})
               AND user_type NOT IN (1, 2, 5, 7, 8, 10)
@@ -725,6 +763,7 @@ def analyze_record(
     db_specialties: dict,
     taxonomy_lookup: dict,
     nppes_context: dict | None = None,
+    id_overrides: dict | None = None,
 ) -> dict:
     """
     Make an educated guess at the correct profession data for a subscriber.
@@ -745,6 +784,11 @@ def analyze_record(
         and search the map for an entry with the same name. When found, the
         recommended ID is the MAP's ID (not the DB's ID), since the DB may carry a
         duplicate or legacy eMed ID for the same concept.
+
+    Rule 4 — Manual override (specialty_id_overrides.csv):
+        When Rules 1–3 all fail, consult the manual override table. If the DB ID
+        appears there, use the mapped eMed ID directly. Add new rows to
+        data/input/specialty_id_overrides.csv to extend this without code changes.
     """
     specialty_ids = _parse_ids(row["specialty_ids"])
 
@@ -790,71 +834,75 @@ def analyze_record(
 
         if map_info:
             match_kind = "direct"
-        else:
-            # Rule 2b: parent specialty match
-            parent_map = specialty_lookup.get(parent_id) if (parent_id and parent_id != 0) else None
-            if parent_map:
-                match_kind = "parent_match"
-                map_info   = parent_map
-            elif db_info:
-                # Rule 3: name-based match
-                name_key   = _norm_name(db_name)
-                spec_hit   = spec_name_lookup.get(name_key)
-                if spec_hit:
-                    match_kind     = "name_match"
-                    map_info       = spec_hit[1]
-                    recommended_id = spec_hit[0]
-                    match_note     = "specialty name match"
-                else:
-                    subspec_hits = subspec_name_lookup.get(name_key, [])
-                    if subspec_hits:
-                        # Prefer the hit whose parent specialty is present
-                        # in this subscriber's confirmed data
-                        preferred = next(
-                            ((ssid, info) for ssid, parent_sid, info in subspec_hits
-                             if parent_sid in map_specialty_ids_present),
+        elif db_info:
+            # Rule 3: name-based match
+            name_key   = _norm_name(db_name)
+            spec_hit   = spec_name_lookup.get(name_key)
+            if spec_hit:
+                match_kind     = "name_match"
+                map_info       = spec_hit[1]
+                recommended_id = spec_hit[0]
+                match_note     = "specialty name match"
+            else:
+                subspec_hits = subspec_name_lookup.get(name_key, [])
+                if subspec_hits:
+                    # Prefer the hit whose parent specialty is present
+                    # in this subscriber's confirmed data
+                    preferred = next(
+                        ((ssid, info) for ssid, parent_sid, info in subspec_hits
+                         if parent_sid in map_specialty_ids_present),
+                        None,
+                    )
+                    if preferred:
+                        match_kind     = "name_match"
+                        map_info       = preferred[1]
+                        recommended_id = preferred[0]
+                        # Find which parent was matched for the note
+                        parent_name = next(
+                            (info["name"] for ssid, parent_sid, info in subspec_hits
+                             if ssid == preferred[0]),
+                            ""
+                        )
+                        # Look up the parent specialty name from map
+                        confirmed_parent = next(
+                            (parent_sid for ssid, parent_sid, _ in subspec_hits
+                             if ssid == preferred[0]),
                             None,
                         )
-                        if preferred:
-                            match_kind     = "name_match"
-                            map_info       = preferred[1]
-                            recommended_id = preferred[0]
-                            # Find which parent was matched for the note
-                            parent_name = next(
-                                (info["name"] for ssid, parent_sid, info in subspec_hits
-                                 if ssid == preferred[0]),
-                                ""
-                            )
-                            # Look up the parent specialty name from map
-                            confirmed_parent = next(
-                                (parent_sid for ssid, parent_sid, _ in subspec_hits
-                                 if ssid == preferred[0]),
-                                None,
-                            )
-                            parent_entry = specialty_lookup.get(confirmed_parent)
-                            match_note = (
-                                f"subspecialty of {parent_entry['name']} "
-                                f"(ID={confirmed_parent}) — parent confirmed in this record"
-                                if parent_entry else "parent specialty confirmed"
-                            )
-                        else:
-                            # No parent context — take first, flag ambiguity
-                            first = subspec_hits[0]
-                            match_kind     = "name_match"
-                            map_info       = first[2]
-                            recommended_id = first[0]
-                            if len(subspec_hits) > 1:
-                                inject_parent = False
-                            match_note     = (
-                                f"no parent context — first available match used"
-                                + (f" ({len(subspec_hits)} candidates)" if len(subspec_hits) > 1 else "")
-                            )
+                        parent_entry = specialty_lookup.get(confirmed_parent)
+                        match_note = (
+                            f"subspecialty of {parent_entry['name']} "
+                            f"(ID={confirmed_parent}) — parent confirmed in this record"
+                            if parent_entry else "parent specialty confirmed"
+                        )
                     else:
-                        match_kind = "no_match"
-                        map_info   = None
-            else:
-                match_kind = "no_match"
-                map_info   = None
+                        # No parent context — take first, flag ambiguity
+                        first = subspec_hits[0]
+                        match_kind     = "name_match"
+                        map_info       = first[2]
+                        recommended_id = first[0]
+                        if len(subspec_hits) > 1:
+                            inject_parent = False
+                        match_note     = (
+                            f"no parent context — first available match used"
+                            + (f" ({len(subspec_hits)} candidates)" if len(subspec_hits) > 1 else "")
+                        )
+                else:
+                    match_kind = "no_match"
+                    map_info   = None
+        else:
+            match_kind = "no_match"
+            map_info   = None
+
+        # Rule 4: manual override — consult specialty_id_overrides.csv
+        if match_kind == "no_match" and id_overrides and sid in id_overrides:
+            override_target = id_overrides[sid]
+            override_info   = specialty_lookup.get(override_target) or subspecialty_lookup.get(override_target)
+            if override_info:
+                match_kind     = "override_match"
+                map_info       = override_info
+                recommended_id = override_target
+                match_note     = f"manual override → eMed ID {override_target} ({override_info['name']})"
 
         if map_info:
             matched_count += 1
@@ -1039,6 +1087,13 @@ def _print_db_details(details: list, out) -> None:
             print(f"                       Map name: \"{map_info['name']}\"", file=out)
             if match_note:
                 print(f"                       Note: {match_note}", file=out)
+        elif match_kind == "override_match":
+            rec_id     = d.get("recommended_id")
+            match_note = d.get("match_note", "")
+            print(f"            Map      : OVERRIDE MATCH → use ID={rec_id}   {_signal_flags(map_info)}", file=out)
+            print(f"                       Map name: \"{map_info['name']}\"", file=out)
+            if match_note:
+                print(f"                       Note: {match_note}", file=out)
         else:
             print(f"            Map      : NO MATCH", file=out)
         print(file=out)
@@ -1066,7 +1121,7 @@ def load_all_processed_ids() -> set[int]:
     return all_ids
 
 
-def _append_to_csv(path: Path, row, analysis: dict) -> None:
+def _append_to_csv(path: Path, row, analysis: dict, extra_cols: dict | None = None) -> None:
     """Write one record to the given CSV (creates with header if needed, else appends)."""
     def _safe_int(val) -> str:
         try:
@@ -1085,6 +1140,20 @@ def _append_to_csv(path: Path, row, analysis: dict) -> None:
 
     rec_ids = analysis.get("recommended_specialty_ids") or []
 
+    raw_sub = row.get("subscription_status")
+    try:
+        sub_key = int(raw_sub) if raw_sub is not None and not pd.isna(raw_sub) else None
+    except (TypeError, ValueError):
+        sub_key = None
+    sub_label = _SUBSCRIPTION_STATUS_MAP.get(sub_key, "Unknown") if sub_key is not None else "Unknown"
+
+    raw_email = row.get("email_status")
+    email_label = (
+        "Good"
+        if raw_email is None or (isinstance(raw_email, float) and pd.isna(raw_email)) or str(raw_email).strip() == ""
+        else str(raw_email).strip()
+    )
+
     record = {
         "id":                               _safe_int(row["id"]),
         "parent_profession_id_orig":        _safe_int(row.get("profession_parent_id")),
@@ -1093,9 +1162,15 @@ def _append_to_csv(path: Path, row, analysis: dict) -> None:
         "parent_profession_id_recommended": _safe_int(analysis.get("guessed_profession_parent_id")),
         "profession_type_id_recommended":   prof_type_rec,
         "specialty_ids_recommended":        ",".join(str(i) for i in rec_ids),
+        "subscription_status":              sub_label,
+        "email_status":                     email_label,
     }
 
-    df = pd.DataFrame([record], columns=_OUTPUT_COLUMNS)
+    if extra_cols:
+        record.update(extra_cols)
+
+    columns = _OUTPUT_COLUMNS + (list(extra_cols.keys()) if extra_cols else [])
+    df = pd.DataFrame([record], columns=columns)
     path.parent.mkdir(parents=True, exist_ok=True)
     write_header = not path.exists()
     df.to_csv(path, mode="a", header=write_header, index=False)
@@ -1107,7 +1182,12 @@ def write_result(row, analysis: dict) -> None:
     if match_type == "full_match":
         _append_to_csv(_CLEAN_CSV, row, analysis)
     elif match_type == "partial_match":
-        _append_to_csv(_PARTIAL_CSV, row, analysis)
+        unmatched = [d for d in analysis.get("details", []) if d["match_kind"] == "no_match"]
+        extra = {
+            "unmatched_ids_orig": ",".join(str(d["specialty_id"]) for d in unmatched),
+            "unmatched_names":    "|".join(d["db_name"] for d in unmatched),
+        }
+        _append_to_csv(_PARTIAL_CSV, row, analysis, extra_cols=extra)
     elif match_type == "no_match":
         _append_to_csv(_MISMATCH_CSV, row, analysis)
     else:
@@ -1237,6 +1317,7 @@ def main() -> None:
     specialty_lookup, subspecialty_lookup = build_lookups(combined)
     spec_name_lookup, subspec_name_lookup = build_name_lookups(combined)
     taxonomy_lookup  = build_taxonomy_lookup(combined)
+    id_overrides     = load_id_overrides()
     order_desc      = isinstance(args.order, str) and args.order.strip().upper() == "DESC"
     logger.info("Checking already-processed IDs across all output files ...")
     already_processed = load_all_processed_ids()
@@ -1274,6 +1355,7 @@ def main() -> None:
                 row, specialty_lookup, subspecialty_lookup,
                 spec_name_lookup, subspec_name_lookup,
                 db_specialties, taxonomy_lookup,
+                id_overrides=id_overrides,
             )
             print_analysis(row, analysis, i, total, out=log)
             write_result(row, analysis)
