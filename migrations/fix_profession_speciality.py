@@ -485,13 +485,17 @@ def build_taxonomy_lookup(combined: list[dict]) -> dict:
     return lookup
 
 
-def load_id_overrides() -> dict[int, int]:
+def load_id_overrides() -> dict[int, dict]:
     """
     Load manual specialty-ID overrides from specialty_id_overrides.csv.
 
-    Returns a dict mapping original_id (DB) → mapped_id (eMed map).
-    Each row in the CSV must have at minimum: original_id, mapped_id.
-    The optional 'notes' column is logged but not used in matching.
+    Returns a dict mapping original_id (DB) → {"mapped_id": int, "parent_id": int|None}.
+    Required columns: original_id, mapped_id.
+    Optional columns:
+      parent_id — when the mapped_id is a sub-specialty, set this to its parent
+                  specialty ID so it gets injected into the recommendation ahead
+                  of the sub-specialty (mirrors _PARENT_SPECIALTY_INJECTION logic).
+      notes     — human-readable description, logged only.
     """
     if not _ID_OVERRIDES_CSV.exists():
         logger.info("No specialty_id_overrides.csv found — skipping manual overrides.")
@@ -501,14 +505,60 @@ def load_id_overrides() -> dict[int, int]:
     df.columns = df.columns.str.strip()
     overrides = {}
     for _, row in df.iterrows():
-        orig = _to_int(row.get("original_id"))
+        orig   = _to_int(row.get("original_id"))
         mapped = _to_int(row.get("mapped_id"))
+        parent = _to_int(row.get("parent_id"))
         if orig is not None and mapped is not None:
-            overrides[orig] = mapped
-            logger.debug("Override loaded: DB ID %d → eMed ID %d  (%s)", orig, mapped, row.get("notes", ""))
+            overrides[orig] = {"mapped_id": mapped, "parent_id": parent}
+            logger.debug(
+                "Override loaded: DB ID %d → eMed ID %d (parent=%s)  (%s)",
+                orig, mapped, parent, row.get("notes", ""),
+            )
 
     logger.info("Manual ID overrides loaded: %d entry/entries from %s", len(overrides), _ID_OVERRIDES_CSV.name)
     return overrides
+
+
+def _validate_id_overrides(
+    id_overrides: dict,
+    specialty_lookup: dict,
+    subspecialty_lookup: dict,
+) -> None:
+    """
+    Warn loudly (and abort) if any override CSV row references an ID that does
+    not exist in the specialty or subspecialty map.
+
+    Two failure modes prevented:
+      - mapped_id not in map  → override silently ignored, record stays no_match
+      - parent_id not in map  → phantom ID written into specialty_ids_recommended
+    """
+    bad = []
+    for orig_id, ov in id_overrides.items():
+        mapped = ov["mapped_id"]
+        parent = ov.get("parent_id")
+
+        if mapped not in specialty_lookup and mapped not in subspecialty_lookup:
+            bad.append(
+                f"  original_id={orig_id}: mapped_id={mapped} not found in specialty or subspecialty map"
+            )
+
+        if parent is not None and parent not in specialty_lookup and parent not in subspecialty_lookup:
+            bad.append(
+                f"  original_id={orig_id}: parent_id={parent} not found in specialty or subspecialty map"
+            )
+
+    if bad:
+        msg = "\n".join(bad)
+        logger.error(
+            "specialty_id_overrides.csv contains %d invalid ID(s):\n%s\n"
+            "Fix the CSV before running — aborting to prevent bad output.",
+            len(bad), msg,
+        )
+        print(f"\n  ERROR: Invalid entries in specialty_id_overrides.csv:\n{msg}")
+        print("  Fix the CSV and re-run.\n")
+        raise SystemExit(1)
+
+    logger.info("Override validation passed — all mapped_id / parent_id values exist in the map.")
 
 
 def fetch_candidates(exclude_ids: set[int], limit: int | None, order_desc: bool = False) -> pd.DataFrame:
@@ -827,10 +877,11 @@ def analyze_record(
             db_type = f"subspecialty (parent_id={parent_id})"
 
         # Rule 2a: direct ID match
-        map_info       = specialty_lookup.get(sid) or subspecialty_lookup.get(sid)
-        recommended_id = sid
-        match_note     = ""
-        inject_parent  = True
+        map_info           = specialty_lookup.get(sid) or subspecialty_lookup.get(sid)
+        recommended_id     = sid
+        match_note         = ""
+        inject_parent      = True
+        override_parent_id = None
 
         if map_info:
             match_kind = "direct"
@@ -896,13 +947,16 @@ def analyze_record(
 
         # Rule 4: manual override — consult specialty_id_overrides.csv
         if match_kind == "no_match" and id_overrides and sid in id_overrides:
-            override_target = id_overrides[sid]
+            ov              = id_overrides[sid]
+            override_target = ov["mapped_id"]
+            override_parent_id = ov.get("parent_id")
             override_info   = specialty_lookup.get(override_target) or subspecialty_lookup.get(override_target)
             if override_info:
                 match_kind     = "override_match"
                 map_info       = override_info
                 recommended_id = override_target
-                match_note     = f"manual override → eMed ID {override_target} ({override_info['name']})"
+                parent_note    = f", parent={override_parent_id}" if override_parent_id else ""
+                match_note     = f"manual override → eMed ID {override_target} ({override_info['name']}{parent_note})"
 
         if map_info:
             matched_count += 1
@@ -910,6 +964,9 @@ def analyze_record(
                 for parent_sid, subspec_ids in _PARENT_SPECIALTY_INJECTION.items():
                     if recommended_id in subspec_ids and parent_sid not in matched_ids:
                         matched_ids.append(parent_sid)
+                # For override matches: also inject parent explicitly declared in the CSV
+                if override_parent_id and override_parent_id not in matched_ids:
+                    matched_ids.append(override_parent_id)
             matched_ids.append(recommended_id)
             if map_info["md"]:  md_signals  += 1
             if map_info["do"]:  do_signals  += 1
@@ -1318,6 +1375,7 @@ def main() -> None:
     spec_name_lookup, subspec_name_lookup = build_name_lookups(combined)
     taxonomy_lookup  = build_taxonomy_lookup(combined)
     id_overrides     = load_id_overrides()
+    _validate_id_overrides(id_overrides, specialty_lookup, subspecialty_lookup)
     order_desc      = isinstance(args.order, str) and args.order.strip().upper() == "DESC"
     logger.info("Checking already-processed IDs across all output files ...")
     already_processed = load_all_processed_ids()
