@@ -34,7 +34,8 @@ logger = get_logger(__name__)
 _INPUT_DIR        = Path(__file__).parent.parent / "data" / "input"
 _MD_DO_CSV        = _INPUT_DIR / "physician_md_do.csv"
 _DPM_CSV          = _INPUT_DIR / "physician_dpm.csv"
-_ID_OVERRIDES_CSV = _INPUT_DIR / "specialty_id_overrides.csv"
+_ID_OVERRIDES_CSV        = _INPUT_DIR / "specialty_id_overrides.csv"
+_PROFESSION_OVERRIDES_CSV = _INPUT_DIR / "profession_overrides.csv"
 
 _DPM_PROFESSION_TYPE_ID = 357
 _MD_PROFESSION_TYPE_ID  = 184
@@ -50,12 +51,13 @@ _CACHE_CSV      = _INPUT_DIR / "newsletter_table.csv"
 _LOG_DIR        = Path(__file__).parent.parent / "logs"
 _LOG_FILE       = _LOG_DIR / "fix_profession_specialty.log"
 _PROCESSED_DIR  = Path(__file__).parent.parent / "data" / "processed" / "physician"
-_CLEAN_CSV          = _PROCESSED_DIR / "clean_specialty.csv"      # full_match
-_PARTIAL_CSV        = _PROCESSED_DIR / "partial_specialty.csv"    # partial_match
-_MISMATCH_CSV       = _PROCESSED_DIR / "mismatch_specialty.csv"   # no_match
-_NO_SPECIALTY_CSV   = _PROCESSED_DIR / "no_specialty.csv"         # no_specialty_data
+_CLEAN_CSV               = _PROCESSED_DIR / "clean_specialty.csv"       # full_match
+_PARTIAL_CSV             = _PROCESSED_DIR / "partial_specialty.csv"     # partial_match
+_MISMATCH_CSV            = _PROCESSED_DIR / "mismatch_specialty.csv"    # no_match
+_NO_SPECIALTY_CSV        = _PROCESSED_DIR / "no_specialty.csv"          # no_specialty_data
+_PROFESSION_OVERRIDE_CSV = _PROCESSED_DIR / "profession_override.csv"   # profession_override
 
-_ALL_OUTPUT_CSVS = (_CLEAN_CSV, _PARTIAL_CSV, _MISMATCH_CSV, _NO_SPECIALTY_CSV)
+_ALL_OUTPUT_CSVS = (_CLEAN_CSV, _PARTIAL_CSV, _MISMATCH_CSV, _NO_SPECIALTY_CSV, _PROFESSION_OVERRIDE_CSV)
 
 # When a sub-specialty is matched, inject its parent specialty ID into the
 # recommendation ahead of the sub-specialty.  Add entries here to extend this
@@ -519,6 +521,52 @@ def load_id_overrides() -> dict[int, dict]:
     return overrides
 
 
+def load_profession_overrides() -> dict[int, dict]:
+    """
+    Load profession-level overrides from profession_overrides.csv.
+
+    When a subscriber's specialty_ids contains a trigger_specialty_id listed here,
+    the record is rerouted to a different profession entirely.  The specialty_ids
+    are kept as-is from the original record and profession_type_id is set to NULL.
+
+    Returns a dict mapping trigger_specialty_id → {
+        "profession_parent_id": int,        # new parent_profession_id
+        "profession_type_id": int | None, # new profession_type_id (None = NULL)
+        "notes":              str,
+    }
+
+    Required columns : trigger_specialty_id, profession_parent_id
+    Optional columns : profession_type_id (blank → None/NULL), notes
+    """
+    if not _PROFESSION_OVERRIDES_CSV.exists():
+        logger.info("No profession_overrides.csv found — skipping profession overrides.")
+        return {}
+
+    df = pd.read_csv(_PROFESSION_OVERRIDES_CSV, dtype=str)
+    df.columns = df.columns.str.strip()
+    overrides: dict[int, dict] = {}
+    for _, row in df.iterrows():
+        trigger  = _to_int(row.get("trigger_specialty_id"))
+        prof_id  = _to_int(row.get("profession_parent_id"))
+        prof_type = _to_int(row.get("profession_type_id"))   # None when blank
+        if trigger is not None and prof_id is not None:
+            overrides[trigger] = {
+                "profession_id":      prof_id,
+                "profession_type_id": prof_type,
+                "notes":              str(row.get("notes") or "").strip(),
+            }
+            logger.debug(
+                "Profession override loaded: specialty ID %d → profession %d (type=%s)  (%s)",
+                trigger, prof_id, prof_type, row.get("notes", ""),
+            )
+
+    logger.info(
+        "Profession overrides loaded: %d entry/entries from %s",
+        len(overrides), _PROFESSION_OVERRIDES_CSV.name,
+    )
+    return overrides
+
+
 def _validate_id_overrides(
     id_overrides: dict,
     specialty_lookup: dict,
@@ -814,6 +862,7 @@ def analyze_record(
     taxonomy_lookup: dict,
     nppes_context: dict | None = None,
     id_overrides: dict | None = None,
+    profession_overrides: dict | None = None,
 ) -> dict:
     """
     Make an educated guess at the correct profession data for a subscriber.
@@ -841,6 +890,37 @@ def analyze_record(
         data/input/specialty_id_overrides.csv to extend this without code changes.
     """
     specialty_ids = _parse_ids(row["specialty_ids"])
+
+    # ── Profession override check (runs before all specialty rules) ───────────
+    # When any specialty_id in this record matches a profession_overrides entry,
+    # the entire record is rerouted to a different profession.  Specialty IDs
+    # are kept verbatim from the original record; profession_type_id is forced
+    # to NULL (e.g. Dentists have no MD/DO distinction).
+    if profession_overrides:
+        for sid in specialty_ids:
+            if sid in profession_overrides:
+                ov = profession_overrides[sid]
+                return {
+                    "method":                       "profession_override",
+                    "match_type":                   "profession_override",
+                    "details":                      [],
+                    "nppes_taxonomy_details":       [],
+                    "md_signals":                   0,
+                    "do_signals":                   0,
+                    "dpm_signals":                  0,
+                    "matched_count":                0,
+                    "recommended_specialty_ids":    specialty_ids,
+                    "guessed_profession_parent_id": ov["profession_id"],
+                    "guessed_profession_id":        ov.get("profession_type_id"),
+                    "prof_type_note":               (
+                        f"profession_override → profession_id={ov['profession_id']} "
+                        f"(triggered by specialty_id={sid})"
+                    ),
+                    "nppes_context":                None,
+                    "force_null_profession_type":   True,
+                    "profession_override_trigger":  sid,
+                    "profession_override_note":     ov.get("notes", ""),
+                }
 
     # ── DB specialty match ────────────────────────────────────────────────────
     method = "db_match"
@@ -1062,7 +1142,19 @@ def print_analysis(row, analysis: dict, index: int, total: int, out) -> None:
 
     method = analysis["method"]
 
-    if method == "nppes_match":
+    if method == "profession_override":
+        trigger  = analysis.get("profession_override_trigger")
+        note     = analysis.get("profession_override_note", "")
+        prof_id  = analysis.get("guessed_profession_parent_id")
+        orig_ids = analysis.get("recommended_specialty_ids") or []
+        print(f"  PROFESSION OVERRIDE: specialty ID {trigger} matched profession_overrides.csv", file=out)
+        print(f"  → New profession_parent_id : {prof_id}", file=out)
+        print(f"  → profession_type_id       : NULL (cleared — no MD/DO distinction for this profession)", file=out)
+        print(f"  → specialty_ids kept as-is : {', '.join(str(i) for i in orig_ids) or '(none)'}", file=out)
+        if note:
+            print(f"  Note: {note}", file=out)
+
+    elif method == "nppes_match":
         ctx = analysis["nppes_context"]
         npi = ctx["data"]["npi"]
         print(f"  RULE APPLIED: >3 DB specialties — NPPES lookup used (1 hit, NPI={npi})", file=out)
@@ -1188,7 +1280,9 @@ def _append_to_csv(path: Path, row, analysis: dict, extra_cols: dict | None = No
 
     prof_type_orig = _safe_int(row.get("profession_type_id"))
 
-    if prof_type_orig:
+    if analysis.get("force_null_profession_type"):
+        prof_type_rec = ""
+    elif prof_type_orig:
         prof_type_rec = prof_type_orig
     elif analysis.get("guessed_profession_id") is not None:
         prof_type_rec = str(analysis["guessed_profession_id"])
@@ -1236,7 +1330,13 @@ def _append_to_csv(path: Path, row, analysis: dict, extra_cols: dict | None = No
 def write_result(row, analysis: dict) -> None:
     """Route the analyzed record to the correct output CSV based on match_type."""
     match_type = analysis.get("match_type", "")
-    if match_type == "full_match":
+    if match_type == "profession_override":
+        extra = {
+            "trigger_specialty_id":  str(analysis.get("profession_override_trigger", "")),
+            "profession_override_note": analysis.get("profession_override_note", ""),
+        }
+        _append_to_csv(_PROFESSION_OVERRIDE_CSV, row, analysis, extra_cols=extra)
+    elif match_type == "full_match":
         _append_to_csv(_CLEAN_CSV, row, analysis)
     elif match_type == "partial_match":
         unmatched = [d for d in analysis.get("details", []) if d["match_kind"] == "no_match"]
@@ -1263,14 +1363,15 @@ def print_summary(debug: bool = False) -> None:
         except Exception:
             return 0
 
-    total_cache = _count(_CACHE_CSV)
-    n_clean     = _count(_CLEAN_CSV)
-    n_partial   = _count(_PARTIAL_CSV)
-    n_mismatch  = _count(_MISMATCH_CSV)
-    n_no_spec   = _count(_NO_SPECIALTY_CSV)
-    n_processed = n_clean + n_partial + n_mismatch + n_no_spec
-    n_remaining = total_cache - n_processed
-    checksum_ok = (n_processed + n_remaining) == total_cache
+    total_cache  = _count(_CACHE_CSV)
+    n_clean      = _count(_CLEAN_CSV)
+    n_partial    = _count(_PARTIAL_CSV)
+    n_mismatch   = _count(_MISMATCH_CSV)
+    n_no_spec    = _count(_NO_SPECIALTY_CSV)
+    n_prof_ov    = _count(_PROFESSION_OVERRIDE_CSV)
+    n_processed  = n_clean + n_partial + n_mismatch + n_no_spec + n_prof_ov
+    n_remaining  = total_cache - n_processed
+    checksum_ok  = (n_processed + n_remaining) == total_cache
 
     W   = 58
     sep = "─" * W
@@ -1283,12 +1384,13 @@ def print_summary(debug: bool = False) -> None:
     print(f"  {'Records in Partial  (partial_match)':<38} {n_partial:>6}")
     print(f"  {'Records in Mismatch  (no_match)':<38} {n_mismatch:>6}")
     print(f"  {'Records in No Specialty  (no_specialty_data)':<38} {n_no_spec:>6}")
+    print(f"  {'Records in Profession Override':<38} {n_prof_ov:>6}")
     print(sep)
     print(f"  {'Total processed':<38} {n_processed:>6}")
     print(f"  {'Still not processed':<38} {n_remaining:>6}")
     print(sep)
     checksum_label = "✓ PASS" if checksum_ok else "✗ FAIL"
-    print(f"  Checksum: {n_clean} + {n_partial} + {n_mismatch} + {n_no_spec} + {n_remaining} = {total_cache}  [{checksum_label}]")
+    print(f"  Checksum: {n_clean} + {n_partial} + {n_mismatch} + {n_no_spec} + {n_prof_ov} + {n_remaining} = {total_cache}  [{checksum_label}]")
     if debug:
         print(sep)
         print(f"  Detail log: {_LOG_FILE}")
@@ -1374,8 +1476,9 @@ def main() -> None:
     specialty_lookup, subspecialty_lookup = build_lookups(combined)
     spec_name_lookup, subspec_name_lookup = build_name_lookups(combined)
     taxonomy_lookup  = build_taxonomy_lookup(combined)
-    id_overrides     = load_id_overrides()
+    id_overrides        = load_id_overrides()
     _validate_id_overrides(id_overrides, specialty_lookup, subspecialty_lookup)
+    profession_overrides = load_profession_overrides()
     order_desc      = isinstance(args.order, str) and args.order.strip().upper() == "DESC"
     logger.info("Checking already-processed IDs across all output files ...")
     already_processed = load_all_processed_ids()
@@ -1414,6 +1517,7 @@ def main() -> None:
                 spec_name_lookup, subspec_name_lookup,
                 db_specialties, taxonomy_lookup,
                 id_overrides=id_overrides,
+                profession_overrides=profession_overrides,
             )
             print_analysis(row, analysis, i, total, out=log)
             write_result(row, analysis)
