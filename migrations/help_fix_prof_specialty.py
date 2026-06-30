@@ -58,12 +58,18 @@ def load_proposed_list() -> pd.DataFrame:
     return df
 
 
-def lookup_proposed(df: pd.DataFrame, input_id: int):
-    """Return the proposed override ID from column 3 (index 2), or None."""
+def lookup_proposed(df: pd.DataFrame, input_id: int) -> tuple[bool, int | None]:
+    """
+    Return (found, proposed_id) from column 3 (index 2).
+
+    found=False → ID not in the proposed list at all.
+    found=True, proposed_id=None → ID found but override cell is blank (delete case).
+    found=True, proposed_id=int  → ID found with a valid replacement.
+    """
     matches = df[df.iloc[:, 0].apply(_to_int) == input_id]
     if matches.empty:
-        return None
-    return _to_int(matches.iloc[0, 2])
+        return False, None
+    return True, _to_int(matches.iloc[0, 2])
 
 
 def already_in_overrides(input_id: int) -> bool:
@@ -77,17 +83,20 @@ def already_in_overrides(input_id: int) -> bool:
         return False
 
 
-def append_override(original_id: int, mapped_id: int, parent_id: int | None, notes: str) -> None:
+def append_override(original_id: int, mapped_id: int | None, parent_id: int | None, notes: str) -> None:
     record = {
         "original_id": str(original_id),
-        "mapped_id":   str(mapped_id),
+        "mapped_id":   str(mapped_id) if mapped_id is not None else "",
         "parent_id":   str(parent_id) if parent_id else "",
         "notes":       notes,
     }
     df = pd.DataFrame([record], columns=_OVERRIDES_COLUMNS)
     write_header = not _OVERRIDES_CSV.exists()
     df.to_csv(_OVERRIDES_CSV, mode="a", header=write_header, index=False)
-    logger.info("Override written: %d → %d (parent=%s)", original_id, mapped_id, parent_id)
+    if mapped_id is not None:
+        logger.info("Override written: %d → %d (parent=%s)", original_id, mapped_id, parent_id)
+    else:
+        logger.info("Override written: %d → DELETE", original_id)
 
 
 # ── Database helpers ──────────────────────────────────────────────────────────
@@ -160,20 +169,52 @@ def main() -> None:
             continue
 
         # ── Step 1: proposed list lookup ──────────────────────────────────────
-        proposed_id = lookup_proposed(proposed_df, input_id)
-        if proposed_id is None:
+        found, proposed_id = lookup_proposed(proposed_df, input_id)
+        if not found:
             print(f"\n  ID {input_id} not found in {_PROPOSED_LIST_CSV.name}.\n")
             continue
 
         # ── Step 2: DB lookup ─────────────────────────────────────────────────
-        rows = fetch_specialties([input_id, proposed_id])
+        ids_to_fetch = [input_id] + ([proposed_id] if proposed_id is not None else [])
+        rows = fetch_specialties(ids_to_fetch)
 
-        input_info    = rows.get(input_id)
-        proposed_info = rows.get(proposed_id)
-
+        input_info = rows.get(input_id)
         if not input_info:
             print(f"\n  ID {input_id} not found in {_SPECIALTIES_TABLE}.\n")
             continue
+
+        # ── Delete-override path (blank mapped_id in proposed list) ───────────
+        if proposed_id is None:
+            input_parent_ids = {input_info["parent_id"]} if input_info.get("parent_id") else set()
+            input_parent_rows = fetch_specialties(list(input_parent_ids)) if input_parent_ids else {}
+
+            print(f"\n  {'─' * W}")
+            _show_row("INPUT (to be REMOVED)", input_id, input_info,
+                      input_parent_rows.get(input_info["parent_id"]))
+            print(f"  {'─' * W}")
+            print("  ACTION: This specialty ID will be removed from recommendations")
+            print("          (no replacement — blank mapped_id will be written).")
+            print(f"  {'─' * W}")
+
+            if already_in_overrides(input_id):
+                print(f"  WARNING: ID {input_id} already has an entry in {_OVERRIDES_CSV.name}.")
+
+            try:
+                answer = input("\n  Write DELETE override? [Y/n]: ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                print()
+                break
+
+            if answer in ("", "y", "yes"):
+                notes = f"{input_info['name']} → REMOVED"
+                append_override(input_id, None, None, notes)
+                print(f"  Written: {input_id},,, {notes}\n")
+            else:
+                print("  Skipped.\n")
+            continue
+
+        # ── Replace-override path (normal case) ───────────────────────────────
+        proposed_info = rows.get(proposed_id)
         if not proposed_info:
             print(f"\n  Proposed override ID {proposed_id} not found in {_SPECIALTIES_TABLE}.\n")
             continue

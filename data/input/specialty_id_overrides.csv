@@ -1,0 +1,155 @@
+original_id,mapped_id,parent_id,notes
+874,626,,Internal Medicine Physicians → Internal Medicine
+899,637,,Orthopaedic Surgery → Orthopedic Surgery
+1916,2633,80,Pathology-Anatomic/Clinical → Anatomic Pathology & Clinical Pathology (sub of Pathology 80)
+89,626,,Internal Medicine and General Medicine → Internal Medicine
+532,231,,OBGYN and Womens Health → Obstetrics and Gynecology
+608,71,,Family Practice → Family Medicine
+518,2684,1912,Abdominal Radiology → Body Imaging (sub of Diagnostic Radiology 1912)
+515,1912,,Radiological Sciences → Diagnostic Radiology
+210,2566,626,"Endocrinology, Metabolism and Diabetes" → Endocrinology-Diabetes and Metabolism (sub of Internal Medicine 626)
+2493,2644,65,Pediatric Neurology → Neurodevelopmental Disabilities (sub of Pediatrics 65)
+503,2639,65,Pediatrics Adolescent Medicine → Adolescent Medicine (sub of Pediatrics 65)
+502,2581,626,Pulmonary Sciences and Critical Care → Pulmonary Disease (sub of Internal Medicine 626)
+794,230,,Functional Medicine → Preventive Medicine
+403,43,,Otorhinolaryngology → Otolaryngology - Head & Neck Surgery243
+315,2631,87,Pain Management → Pain Medicine (sub of Pain Medicine 87)
+77,2581,626,Pulmonary Medicine → Pulmonary Disease (sub of Internal Medicine 626)
+401,2643,65,Neonatal and Perinatology → Neonatal - Perinatal Medicine (sub of Pediatrics 65)
+879,626,,General and Internal Medicine → Internal Medicine
+95,1065,,Neurosurgery → Neurological Surgery
+6,1912,,Radiology → Diagnostic Radiology
+155,2713,,Hospital Medicine → Hospitalist
+243,2642,65,Toxicology → Medical Toxicology (sub of Pediatrics 65)
+69,2550,71,Geriatrics → Geriatric Medicine (sub of Family Medicine 71)
+1916,2633,80,Pathology - Anatomic/Pathology - Clinical → Anatomic Pathology & Clinical Pathology (sub of Pathology 80)
+514,2698,1912,Interventional Radiology → Vascular & Interventional Radiology (sub of Diagnostic Radiology 1912)
+896,1904,,Medical Genetics and Genomics → Clinical Genetics and Genomics
+1905,2591,1904,Clinical Molecular Genetics and Genomics → Molecular Genetic pathology (sub of Clinical Genetics and Genomics 1904)
+461,626,,Primary Care → Internal Medicine
+1922,1023,906,Child and Adolescent Neurology → Child and Adolescent Psychiatry (sub of Psychiatry and Neurology 906)
+920,2534,81,Anesthesiology Critical Care Medicine → Critical Care Medicine (sub of Anesthesiology 81)
+923,2564,626,Internal Medicine Critical Care Medicine → Critical Care Medicine (sub of Internal Medicine 626)
+779,100,,Optometry → Ophthalmology
+1460,2592,1904,Medical Genetics → PhD - Medical Genetics (sub of Clinical Genetics and Genomics 1904)
+1756,2631,87,Interventional Pain Management → Pain Medicine (sub of Pain Medicine 87)
+106,2589,1904,Biochemistry and Molecular Genetics → Clinical Molecular Genetics (sub of Clinical Genetics and Genomics 1904)
+5,2577,626,Oncology → Medical Oncology (sub of Internal Medicine 626)
+305,889,,Immunology and Microbiology → Allergy and Immunology
+872,2678,906,Neurologists → Neurology (sub of Psychiatry and Neurology 906)
+900,43,,Otolaryngology Head and Neck Surgery → Otolaryngology - Head & Neck Surgery
+41,637,,Orthopedics → Orthopedic Surgery
+999,2649,65,Pediatric Hematology Oncology → Pediatric Hematology - Oncology (sub of Pediatrics 65)
+809,2574,626,Epidemiology → Infectious Disease (sub of Internal Medicine 626)
+508,65,,General Academic Pediatrics → Pediatrics
+107,1904,,Genetics → Clinical Genetics and Genomics
+497,338,,Cell and Developmental Biology → Research and Clinical Research
+384,2672,230,Public Health → Public Health & General Preventive Medicine (sub of Preventive Medicine 230)
+137,230,,Biotechnology → Preventive Medicine
+561,230,,Neuroscience → Preventive Medicine
+257,2644,65,Pediatrics Neurology → Neurodevelopmental Disabilities (sub of Pediatrics 65)
+56,2553,71,Nutrition → Physician Nutrition Specialist (sub of Family Medicine 71)
+1073,520,,Cardiac Surgery → Cardiothoracic Surgery
+617,2637,80,Forensic Science → Pathology - Forensic (sub of Pathology 80)
+815,2574,626,Virology → Infectious Disease (sub of Internal Medicine 626)
+176,230,,Osteopathic Medicine → Preventive Medicine
+943,2566,626,"Endocrinology, Diabetes and Metabolism → Endocrinology-Diabetes and Metabolism (sub of Internal Medicine 626)"
+553,71,,Trauma → Family Medicine
+289,43,,Head and Neck Surgery → Otolaryngology - Head & Neck Surgery
+733,1926,,Musculo Skeletal system → Neuromusculoskeletal Medicine
+278,2674,230,Hyperbaric medicine → Undersea and Hyperbaric Medicine (sub of Preventive Medicine 230)
+1448,43,,Otolaryngology -- all areas → Otolaryngology - Head & Neck Surgery
+1462,2631,87,Pain Management → Pain Medicine (sub of Pain Medicine 87)
+868,2581,626,Pulmonologists → Pulmonary Disease (sub of Internal Medicine 626)
+877,626,,Primary Care Physicians → Internal Medicine
+755,230,,Molecular Biology → Preventive Medicine
+271,2672,230,Healthcare Management → Public Health & General Preventive Medicine (sub of Preventive Medicine 230)
+552,230,,Military Medicine → Preventive Medicine
+777,82,,Aesthetic Medicine → Dermatology
+1063,1912,,Abdominal Imaging → Diagnostic Radiology
+1917,2632,80,Pathology - Anatomic → Anatomic Pathology (sub of Pathology 80)
+863,2617,637,Orthopedics - Foot & Ankle Surgery → Foot and Ankle Surgery (sub of Orthopedic Surgery 637)
+1930,2636,80,Laboratory Medicine → Clinical Pathology or Laboratory Medicine (sub of Pathology 80)
+793,230,,Age Management Medicine → Preventive Medicine
+322,2566,626,Endocrinology → Endocrinology-Diabetes and Metabolism (sub of Internal Medicine 626)
+993,2643,65,Neonatal Perinatal Medicine → Neonatal - Perinatal Medicine (sub of Pediatrics 65)
+619,2681,906,Mental Health and Law → Psychiatry (sub of Psychiatry and Neurology 906)
+498,626,,Medicine → Internal Medicine
+789,,,Remedial → REMOVED
+812,,,Speech Language Pathology → REMOVED
+721,,,Physical Therapy → REMOVED
+538,1919,82,Dermatologic Surgery → MOHS Micrographic Surgery (sub of Dermatology 82)
+635,81,,Anesthesia and Intensive Care → Anesthesiology
+783,70,,Follicular unit extraction (FUE) Hair Restoration Surgery → Plastic Surgery
+287,,,Medical Education → REMOVED
+341,2667,230,Bioinformatics → Clinical Informatics (sub of Preventive Medicine 230)
+189,320,,Pharmacy and Medicine → Clinical Pharmacology
+488,2681,906,Psychology → Psychiatry (sub of Psychiatry and Neurology 906)
+122,230,,Healthcare Technology → Preventive Medicine
+880,71,,Family and Patient Centered Care → Family Medicine
+489,2681,906,Behavioral Health → Psychiatry (sub of Psychiatry and Neurology 906)
+504,2646,65,Pediatrics Allergy and Immunology → Pediatric Allergy or Immunology (sub of Pediatrics 65)
+598,68,,Bariatric Surgery → Surgery
+254,2606,231,Reproductive Endocrinology → Reproductive Endocrinology and Infertility (sub of Obstetrics and Gynecology 231)
+597,1904,,Clinical Genetics → Clinical Genetics and Genomics
+599,1065,,Spine surgery → Neurological Surgery
+303,2568,626,Wound Care → Geriatric Medicine (sub of Internal Medicine 626)
+579,71,,Patient and Family Centered Care → Family Medicine
+1935,63,,Urological Surgery → Urology
+595,2603,231,Maternal Fetal Medicine → Maternal - Fetal Medicine (sub of Obstetrics and Gynecology 231)
+983,2634,80,Pathology Chemical → Pathology - Chemical (sub of Pathology 80)
+882,2581,626,Pulmonology → Pulmonary Disease (sub of Internal Medicine 626)
+784,889,,Immunotherapies → Allergy and Immunology
+866,2649,65,Pediatric Oncology → Pediatric Hematology - Oncology (sub of Pediatrics 65)
+524,2606,231,GI Tumor and Endocrine Surgery → Reproductive Endocrinology and Infertility (sub of Obstetrics and Gynecology 231)
+96,2578,626,Renal Medicine Disease and Hypertension → Nephrology (sub of Internal Medicine 626)
+1931,2637,80,Forensic Pathology → Pathology - Forensic (sub of Pathology 80)
+184,891,,Colorectal Surgery → Colon and Rectal Surgery
+682,2681,906,Psychotherapy → Psychiatry (sub of Psychiatry and Neurology 906)
+279,2651,65,Pediatric Pulmonary → Pediatric Pulmonology (sub of Pediatrics 65)
+408,2650,65,Pediatric Infectious Disease → Pediatric Infectious Diseases (sub of Pediatrics 65)
+255,2622,637,Orthopaedic Sports Medicine → Sports Medicine (sub of Orthopedic Surgery 637)
+971,2622,637,Orthopaedic Sports Medicine → Sports Medicine (sub of Orthopedic Surgery 637)
+587,80,,Head and Neck Pathology → Pathology
+968,2603,231,Maternal Fetal Medicine → Maternal - Fetal Medicine (sub of Obstetrics and Gynecology 231)
+506,2647,65,Pediatrics Critical Care → Pediatric Critical Care Medicine (sub of Pediatrics 65)
+516,2684,1912,Musculoskeletal Radiology → Body Imaging (sub of Diagnostic Radiology 1912)
+523,1912,,Breast Radiology → Diagnostic Radiology
+918,1919,82,Micrographic Dermatologic Surgery → MOHS Micrographic Surgery (sub of Dermatology 82)
+521,1024,906,Clinical Psychology → Clinical Neurophysiology (sub of Psychiatry and Neurology 906)
+509,2644,65,Pediatrics Genetics and Metabolism → Neurodevelopmental Disabilities (sub of Pediatrics 65)
+519,70,,Burn Surgery → Plastic Surgery
+316,71,,Rural Medicine → Family Medicine
+667,2618,637,Hand Surgery → Surgery of the Hand (sub of Orthopedic Surgery 637)
+406,2652,65,Pediatric Gastroenterology Hepatology and Nutrition → Pediatric Transplant Hepatology (sub of Pediatrics 65)
+517,2684,1912,Thoracic Radiology → Body Imaging (sub of Diagnostic Radiology 1912)
+645,70,,Cleft Lip and palate Surgery → Plastic Surgery
+379,2569,626,Haematology → Hematology (sub of Internal Medicine 626)
+781,2,,Pre-Hospital Emergency Medicine → Emergency Medicine
+871,43,,ENT → Otolaryngology - Head & Neck Surgery
+103,2569,626,Hematology Blood and Marrow Transplant → Hematology (sub of Internal Medicine 626)
+492,2681,906,Mental Health → Psychiatry (sub of Psychiatry and Neurology 906)
+965,2665,70,Reconstructive Surgery → Plastic and Reconstructive Surgery (sub of Plastic Surgery 70)
+306,70,,Cosmetic Breast Surgery → Plastic Surgery
+1613,230,,Anti Aging Medicine → Preventive Medicine
+1453,637,,orthopedic → Orthopedic Surgery
+830,1027,906,Forensic Psychology → Forensic Psychiatry (sub of Psychiatry and Neurology 906)
+512,2644,65,Pediatrics Psychology → Neurodevelopmental Disabilities (sub of Pediatrics 65)
+1465,2592,1904,Medical Genetics → PhD - Medical Genetics (sub of Clinical Genetics and Genomics 1904)
+2514,68,,Surgical → Surgery
+1923,1024,906,Neurophysiology → Clinical Neurophysiology (sub of Psychiatry and Neurology 906)
+625,2567,626,Gastrointestinal Endoscopy → Gastroenterology (sub of Internal Medicine 626)
+510,2653,65,Pediatrics Nutrition → Physician Nutrition Specialist (sub of Pediatrics 65)
+407,2649,65,Pediatric Hematology and Bone Marrow Transplant → Pediatric Hematology - Oncology (sub of Pediatrics 65)
+612,2607,231,Cosmetic gynecology → Female Pelvic Medicine and Reconstructive Surgery (sub of Obstetrics and Gynecology 231)
+209,889,,Asthma Clinical Immunology → Allergy and Immunology
+1614,2564,626,Acute Care → Critical Care Medicine (sub of Internal Medicine 626)
+299,2561,626,Vascular Disease → Cardiovascular Disease (sub of Internal Medicine 626)
+2106,2536,81,Pain → Pain Medicine (sub of Anesthesiology 81)
+533,230,,Lifestyle Medicine → Preventive Medicine
+411,2561,626,Vascular Medicine → Cardiovascular Disease (sub of Internal Medicine 626)
+547,1035,906,Stroke and Cerebrovascular → Vascular Neurology (sub of Psychiatry and Neurology 906)
+823,2606,231,Fertility → Reproductive Endocrinology and Infertility (sub of Obstetrics and Gynecology 231)
+709,2670,230,Occupational health → Occupational Medicine (sub of Preventive Medicine 230)
+2292,2643,65,Neonatal → Neonatal - Perinatal Medicine (sub of Pediatrics 65)
+572,2561,626,Echocardiography → Cardiovascular Disease (sub of Internal Medicine 626)

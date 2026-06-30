@@ -508,14 +508,20 @@ def load_id_overrides() -> dict[int, dict]:
     overrides = {}
     for _, row in df.iterrows():
         orig   = _to_int(row.get("original_id"))
-        mapped = _to_int(row.get("mapped_id"))
+        mapped = _to_int(row.get("mapped_id"))   # None when blank → delete override
         parent = _to_int(row.get("parent_id"))
-        if orig is not None and mapped is not None:
+        if orig is not None:
             overrides[orig] = {"mapped_id": mapped, "parent_id": parent}
-            logger.debug(
-                "Override loaded: DB ID %d → eMed ID %d (parent=%s)  (%s)",
-                orig, mapped, parent, row.get("notes", ""),
-            )
+            if mapped is None:
+                logger.debug(
+                    "Override loaded: DB ID %d → DELETE (remove from recommendation)  (%s)",
+                    orig, row.get("notes", ""),
+                )
+            else:
+                logger.debug(
+                    "Override loaded: DB ID %d → eMed ID %d (parent=%s)  (%s)",
+                    orig, mapped, parent, row.get("notes", ""),
+                )
 
     logger.info("Manual ID overrides loaded: %d entry/entries from %s", len(overrides), _ID_OVERRIDES_CSV.name)
     return overrides
@@ -549,14 +555,14 @@ def load_profession_overrides() -> dict[int, dict]:
         trigger  = _to_int(row.get("trigger_specialty_id"))
         prof_id  = _to_int(row.get("profession_parent_id"))
         prof_type = _to_int(row.get("profession_type_id"))   # None when blank
-        if trigger is not None and prof_id is not None:
+        if trigger is not None:
             overrides[trigger] = {
-                "profession_id":      prof_id,
+                "profession_id":      prof_id,   # None means set profession_parent_id to NULL
                 "profession_type_id": prof_type,
                 "notes":              str(row.get("notes") or "").strip(),
             }
             logger.debug(
-                "Profession override loaded: specialty ID %d → profession %d (type=%s)  (%s)",
+                "Profession override loaded: specialty ID %d → profession %s (type=%s)  (%s)",
                 trigger, prof_id, prof_type, row.get("notes", ""),
             )
 
@@ -584,6 +590,9 @@ def _validate_id_overrides(
     for orig_id, ov in id_overrides.items():
         mapped = ov["mapped_id"]
         parent = ov.get("parent_id")
+
+        if mapped is None:
+            continue  # delete override — no target ID to validate
 
         if mapped not in specialty_lookup and mapped not in subspecialty_lookup:
             bad.append(
@@ -945,6 +954,28 @@ def analyze_record(
                     map_specialty_ids_present.add(hit[0])
 
     for sid in specialty_ids:
+        # Delete override: blank mapped_id in specialty_id_overrides.csv → remove this ID entirely
+        if id_overrides and sid in id_overrides and id_overrides[sid]["mapped_id"] is None:
+            db_info   = db_specialties.get(sid, {})
+            db_name   = db_info.get("name", "(not in DB)") if db_info else "(not in DB)"
+            parent_id = db_info.get("parent_id") if db_info else None
+            if not db_info:
+                db_type = "not_in_db"
+            elif parent_id == 0:
+                db_type = "specialty"
+            else:
+                db_type = f"subspecialty (parent_id={parent_id})"
+            details.append({
+                "specialty_id":   sid,
+                "recommended_id": None,
+                "db_name":        db_name,
+                "db_type":        db_type,
+                "match_kind":     "override_remove",
+                "match_note":     "manual override — removed from recommendation",
+                "map_info":       None,
+            })
+            continue
+
         db_info   = db_specialties.get(sid, {})
         db_name   = db_info.get("name", "(not in DB)") if db_info else "(not in DB)"
         parent_id = db_info.get("parent_id") if db_info else None
@@ -1062,10 +1093,11 @@ def analyze_record(
             "map_info":       map_info,
         })
 
-    total_ids = len(specialty_ids)
+    removed_count  = sum(1 for d in details if d["match_kind"] == "override_remove")
+    effective_total = len(specialty_ids) - removed_count
     if not specialty_ids:
         match_type = "no_specialty_data"
-    elif matched_count == total_ids:
+    elif matched_count == effective_total:
         match_type = "full_match"
     elif matched_count > 0:
         match_type = "partial_match"
@@ -1241,6 +1273,11 @@ def _print_db_details(details: list, out) -> None:
             match_note = d.get("match_note", "")
             print(f"            Map      : OVERRIDE MATCH → use ID={rec_id}   {_signal_flags(map_info)}", file=out)
             print(f"                       Map name: \"{map_info['name']}\"", file=out)
+            if match_note:
+                print(f"                       Note: {match_note}", file=out)
+        elif match_kind == "override_remove":
+            match_note = d.get("match_note", "")
+            print(f"            Map      : OVERRIDE REMOVE — excluded from recommendation", file=out)
             if match_note:
                 print(f"                       Note: {match_note}", file=out)
         else:

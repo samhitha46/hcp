@@ -1,0 +1,723 @@
+speciality_id,name,New Speciality id
+2,Emergency Medicine,2
+4,Neurology,2678
+5,Oncology,2577
+6,Radiology,1912
+8,Cardiology,8
+41,Orthopedics,637
+43,Otolaryngology - Head & Neck Surgery,43
+48,Other Specialties,48
+51,Psychiatry,2681
+56,Nutrition,2553
+59,Alternative Medicine,59
+62,Sports Medicine,62
+63,Urology,63
+65,Pediatrics,65
+66,Rheumatology,2582
+67,Gastroenterology,2567
+68,Surgery,68
+69,Geriatrics,2550
+70,Plastic Surgery,70
+71,Family Medicine,71
+72,Infectious Disease,2574
+77,Pulmonary Medicine,2581
+80,Pathology,80
+81,Anesthesiology,81
+82,Dermatology,82
+87,Pain Medicine,87
+89,Internal Medicine and General Medicine,626
+95,Neurosurgery,1065
+96,Renal Medicine Disease and Hypertension,2578
+100,Ophthalmology,100
+103,Hematology Blood and Marrow Transplant,2569
+106,Biochemistry and Molecular Genetics,2589
+107,Genetics,1904
+115,Endodontics,115
+119,Critical Care Medicine,2564
+122,Healthcare Technology,230
+137,Biotechnology,230
+155,Hospital Medicine,2713
+168,Physical Medicine and Rehabilitation,1463
+175,Occupational Medicine,2670
+176,Osteopathic Medicine,230
+181,Vascular Surgery,2706
+182,Thoracic Surgery,182
+183,Nuclear Medicine,183
+184,Colorectal Surgery,891
+186,Sleep Medicine,2554
+189,Pharmacy and Medicine,320
+196,Hepatology,2571
+197,Dermatopathology,2542
+207,Podiatry,207
+209,Asthma Clinical Immunology,889
+211,Hospice and Palliative Medicine,211
+230,Preventive Medicine,230
+231,Obstetrics and Gynecology,231
+240,Pediatric Anesthesiology,915
+241,Pediatric Dermatology,2543
+243,Toxicology,2642
+248,Clinical Cardiac Electrophysiology,2563
+249,Interventional Cardiology,2575
+250,Transplant Hepatology,2585
+251,Female Pelvic Medicine and Reconstructive Surgery,2607
+254,Reproductive Endocrinology,2606
+255,Orthopaedic Sports Medicine,2622
+256,Surgery of the Hand,2703
+257,Pediatrics Neurology,2644
+261,Nuclear Radiology,2694
+262,Pediatric Radiology,2695
+263,Vascular and Interventional Radiology,2698
+265,Pediatric Surgery,2701
+271,Healthcare Management,2672
+278,Hyperbaric medicine,2674
+279,Pediatric Pulmonary,2651
+280,Pediatric Cardiology,280
+287,Medical Education,
+289,Head and Neck Surgery,43
+294,Surgical Oncology,2577
+298,Neuroradiology,1037
+299,Vascular Disease,2561
+303,Wound Care,2568
+304,Radiation Oncology,2696
+305,Immunology and Microbiology,889
+306,Cosmetic Breast Surgery,70
+314,General Medicine,626
+315,Pain Management,2631
+316,Rural Medicine,71
+322,Endocrinology,2566
+334,Cytopathology,979
+335,Clinical Cytopathology,979
+341,Bioinformatics,2667
+379,Haematology,2569
+384,Public Health,2672
+401,Neonatal and Perinatology,2643
+403,Otorhinolaryngology,43
+404,Pediatric Emergency Medicine,2648
+405,Pediatric Endocrinology,405
+406,Pediatric Gastroenterology Hepatology and Nutrition,2652
+407,Pediatric Hematology and Bone Marrow Transplant,2649
+408,Pediatric Infectious Disease,2650
+409,Pediatric Nephrology,1002
+410,Pediatric Rheumatology,1004
+411,Vascular Medicine,2561
+453,ECMO,2564
+461,Primary Care,626
+488,Psychology,2681
+489,Behavioral Health,2681
+492,Mental Health,2681
+494,Palliative Care,2572
+497,Cell and Developmental Biology,338
+498,Medicine,626
+501,Medical Oncology,2577
+504,Pediatrics Allergy and Immunology,2646
+505,Pediatrics Child Abuse,2640
+506,Pediatrics Critical Care,2647
+507,Developmental Behavioral Pediatrics,507
+508,General Academic Pediatrics,65
+509,Pediatrics Genetics and Metabolism,2644
+510,Pediatrics Nutrition,2653
+511,Child and Adolescent Psychiatry,1023
+512,Pediatrics Psychology,2644
+514,Interventional Radiology,2698
+515,Radiological Sciences,1912
+516,Musculoskeletal Radiology,2684
+517,Thoracic Radiology,2684
+519,Burn Surgery,70
+520,Cardiothoracic Surgery,182
+521, Clinical Psychology,1024
+523,Breast Radiology,1912
+524,GI Tumor and Endocrine Surgery,2606
+525,Plastic and Reconstructive Surgery,2702
+526,Transplant Surgery,68
+532,OBGYN and Womens Health,231
+533,Lifestyle Medicine,230
+538,Dermatologic Surgery,1919
+547,Stroke and Cerebrovascular,1035
+548,General Surgery,68
+552,Military Medicine,230
+553,Trauma,71
+561,Neuroscience,230
+572,Echocardiography,2561
+576,Venerology,82
+579,Patient and Family Centered Care,71
+586,Neuropathology,982
+587,Head and Neck Pathology,80
+595,Maternal Fetal Medicine,2603
+597,Clinical Genetics,1904
+598,Bariatric Surgery,68
+599,Spine surgery,1065
+608,Family Practice,71
+611,nephrologist,2578
+612,Cosmetic gynecology,2607
+617,Forensic Science,2637
+618,Forensic Psychiatry,1027
+619,Mental Health and Law,2681
+625,Gastrointestinal Endoscopy,2567
+626,Internal Medicine,626
+635,Anesthesia and Intensive Care,81
+636,General Surgery,68
+637,Orthopedic Surgery,637
+639,Neonatology,2643
+645,Cleft Lip and palate Surgery,70
+650,Nuclear Cardiology,2595
+667,Hand Surgery,2618
+668,Arthroscopy,637
+676,Nephrology,2578
+680,peadiatric,65
+682,Psychotherapy,2681
+685,Hematopathology,80
+700,Breast Surgery,68
+703,Public Health,2672
+705,Addiction Medicine,2556
+709,Occupational health,2670
+713,Pediatric Neurology,2644
+733,Musculo Skeletal system,1926
+757,Infectious diseases,2574
+762,Precision medicine,1904
+768,Dermatologist,82
+777,Aesthetic Medicine,82
+779,Optometry,100
+781,Pre-Hospital Emergency Medicine,2
+783,Follicular unit extraction (FUE) Hair Restoration Surgery,70
+784,Immunotherapies,889
+791,Facial Plastic Surgery,2623
+792,Oculoplastic Surgery,2615
+793,Age Management Medicine,230
+794,Functional Medicine,230
+797,Herbal medicine,230
+806,Adult Medicine,626
+807,General Practice,626
+809,Epidemiology,2574
+812,Speech Language Pathology,
+815,Virology,2574
+818,Integrative Medicine,230
+821,Sonography,2686
+823,Fertility,2606
+824,Andrology,63
+825,Assisted Reproduction,2606
+828,Surgical Critical Care,2704
+830,Forensic Psychology,1027
+862,Podiatry - Foot & Ankle Surgery,862
+863,Orthopedics - Foot & Ankle Surgery,2617
+866,Pediatric Oncology,2649
+868,Pulmonologists,2581
+870,Sleep Physicians,2583
+871,ENT,43
+872,Neurologists,2678
+877,Primary Care Physicians,626
+879,General and Internal Medicine,626
+880,Family and Patient Centered Care,71
+882,Pulmonology,2581
+883,Pediatrics,65
+884,Rheology,2582
+885,Gynecology,231
+888,Head & Neck Cancer,43
+889,Allergy and Immunology,889
+893,Emergency Medicine,2
+896,Medical Genetics and Genomics,1904
+897,Obstetrics and Gynecology,231
+900,Otolaryngology Head and Neck Surgery,43
+901,Pathology,80
+902,Pediatrics,65
+906,Psychiatry and Neurology,906
+911,Critical Care Medicine,2534
+912,Hospice and Palliative Medicine,2535
+913,Neurocritical Care,2540
+914,Pain Medicine,2536
+915,Pediatric Anesthesiology,915
+916,Sleep Medicine,2554
+917,Dermatopathology,2542
+918,Micrographic Dermatologic Surgery,1919
+919,Pediatric Dermatology,2543
+920,Anesthesiology Critical Care Medicine,2534
+922,Hospice and Palliative Medicine,2546
+923,Internal Medicine Critical Care Medicine,2564
+924,Medical Toxicology,924
+925,Neurocritical Care,925
+926,Pain Medicine,926
+927,Pediatric Emergency Medicine,927
+928,Sports Medicine,928
+929,Undersea and Hyperbaric Medicine,929
+930,Adolescent Medicine,930
+931,Geriatric Medicine,2568
+932,Hospice and Palliative Medicine,2572
+933,Pain Medicine,87
+934,Sleep Medicine,2554
+935,Sports Medicine,2555
+936,Adolescent Medicine,2557
+937,Adult Congenital Heart Disease,2561
+938,Advanced Heart Failure and Transplant Cardiology,2559
+939,Cardiology,8
+940,Cardiovascular Disease,2561
+941,Clinical Cardiac Electrophysiology,2563
+942,Critical Care Medicine,2534
+943,"Endocrinology, Diabetes and Metabolism",2566
+944,Gastroenterology,2567
+945,Geriatric Medicine,2550
+946,Hematology,2569
+947,Hospice and Palliative Medicine,2551
+948,Infectious Disease,2574
+949,Interventional Cardiology,2575
+950,Medical Oncology,2577
+951,Nephrology,2578
+952,Pulmonary Disease,2581
+953,Rheumatology,2582
+954,Sleep Medicine,2583
+955,Sports Medicine,2584
+956,Transplant Hepatology,2585
+957,Medical Biochemical Genetics,2590
+958,Molecular Genetic Pathology,986
+959,Neurological Surgery,1065
+960,Neurocritical Care,2593
+961,Nuclear Medicine,183
+962,Critical Care Medicine,2598
+963,Complex Family Planning,2597
+964,Female Pelvic Medicine and,2607
+965,Reconstructive Surgery,2665
+966,Gynecologic Oncology,2600
+967,Hospice and Palliative Medicine,2602
+968,Maternal Fetal Medicine,2603
+969,Reproductive Endocrinology and Infertility,2606
+970,Infertility,2606
+971,Orthopaedic Sports Medicine,2622
+972,Surgery of the Hand,2618
+973,Neurotology,43
+974,Complex Pediatric Otolaryngology,2627
+975,Plastic Surgery within the Head and Neck,2663
+976,Sleep Medicine,2629
+977,Blood Banking or Transfusion Medicine,977
+978,Clinical Informatics,978
+979,Cytopathology,979
+980,Dermatopathology,980
+981,Hematopathology,981
+982,Neuropathology,982
+983,Pathology Chemical,2634
+984,Pathology Forensic,2637
+985,Pathology - Medical Microbiology,985
+986,Pathology - Molecular Genetic,986
+987,Pathology - Pediatric,987
+988,Adolescent Medicine,2639
+989,Child Abuse Pediatrics,2640
+990,Developmental Behavioral Pediatrics,507
+991,Hospice and Palliative Medicine,211
+992,Medical Toxicology,924
+993,Neonatal Perinatal Medicine,2643
+994,Pediatric Cardiology,280
+995,Pediatric Critical Care Medicine,2647
+996,Pediatric Emergency Medicine,2648
+997,Pediatric Endocrinology,405
+998,Pediatric Gastroenterology,998
+999,Pediatric Hematology Oncology,2649
+1000,Pediatric Hospital Medicine,2655
+1001,Pediatric Infectious Diseases,2650
+1002,Pediatric Nephrology,1002
+1003,Pediatric Pulmonology,2651
+1004,Pediatric Rheumatology,1004
+1005,Pediatric Transplant Hepatology,2652
+1006,Sleep Medicine,2654
+1007,Sports Medicine,62
+1008,Brain Injury Medicine,2656
+1009,Hospice and Palliative Medicine,2657
+1010,Neuromuscular Medicine,1032
+1011,Pain Medicine,2659
+1012,Pediatric Rehabilitation Medicine,2660
+1013,Spinal Cord Injury Medicine,2661
+1014,Sports Medicine,2662
+1015,Plastic Surgery within the Head and Neck,2628
+1016,Surgery of the Hand,2618
+1017,Addiction Medicine,1017
+1018,Clinical Informatics,2667
+1019,Medical Toxicology,2668
+1020,Undersea and Hyperbaric Medicine,2674
+1021,Addiction Psychiatry,1021
+1022,Brain Injury Medicine,1022
+1023,Child and Adolescent Psychiatry,1023
+1024,Clinical Neurophysiology,1024
+1025,Consultation Liaison Psychiatry,2681
+1026,Epilepsy,1026
+1027,Forensic Psychiatry,1027
+1028,Geriatric Psychiatry,1028
+1029,Hospice and Palliative Medicine,1029
+1030,Neurocritical Care,1030
+1031,Neurodevelopmental Disabilities,1031
+1032,Neuromuscular Medicine,1032
+1033,Pain Medicine,1033
+1034,Sleep Medicine,1034
+1035,Vascular Neurology,1035
+1036,Hospice and Palliative Medicine,2687
+1037,Neuroradiology,1037
+1038,Nuclear Radiology,2694
+1039,Pain Medicine,87
+1040,Pediatric Radiology,2695
+1041,Complex General Surgical Oncology,68
+1042,Hospice and Palliative Medicine,2689
+1043,Pediatric Surgery,2701
+1044,Surgery of the Hand,2618
+1045,Surgical Critical Care,2704
+1046,Congenital Cardiac Surgery,2707
+1047,Female Pelvic Medicine and Reconstructive Surgery,2607
+1048,Pediatric Urology,2709
+1055,Infectious Diseases,2574
+1056,Critical Care Medicine,2564
+1057,Urgent Care,626
+1061,Cardiology and Vascular Medicine,2561
+1062,Pediatrics and Adolescent Medicine,2639
+1063,Abdominal Imaging,1912
+1065,Neurological Surgery,1065
+1066,Brain surgery,1065
+1067,Minimally invasive surgery,68
+1068,Endoscopic surgery,68
+1073,Cardiac Surgery,520
+1074,Interventional Cardiology,2575
+1075,Genitourinary Oncology,63
+1078,Lymphoma,2577
+1079,Neuro-Oncology,2577
+1080,Oncology and Hematology,2570
+1082,Thoracic Medical Oncology,2577
+1085,Adrenal and Cardiovascular Endocrinology,2566
+1087,Clinical Endocrinology,2566
+1088,Endocrine related Cancer and Tumors,2606
+1089,Neuroendocrinology and NET,2566
+1090,Reproductive and Development Endocrinology,2606
+1091,Pediatric Endocrinology,405
+1095,Paediatric Neurology,2644
+1099,Psychiatry and Mental Health,2681
+1103,Glaucoma,100
+1110,Pediatric ENT,43
+1112,Otology-Neurotology,43
+1122,Hospice,2535
+1123,Travel Medicine,230
+1130,Organ Transplantation,68
+1132,Liver Transplantation,68
+1133,Heart Transplantation,8
+1134,Corneal Transplantation,100
+1135,Hair Transplantation,70
+1146,Preventive cardiology,230
+1151,obstetrics & gynaecology,231
+1152,Pulmonology,2581
+1154,Interventional Pulmonology,2581
+1155,Paediatric,65
+1156,Paediatric Interventional Pulmonology,2651
+1162,Breast Oncology,2577
+1163,Breast Oncologist and oncoplastic Surgeons,70
+1165,Epilepsy,1026
+1170,Regional Anesthesia,81
+1171,Acute Pain,2631
+1174,Clinical Cardiology,8
+1175,Heart Sugery,182
+1176,Cardiac nutrition,2553
+1177,Prostate Cancer,63
+1183,Obstetrics,231
+1184,OB-GYN,231
+1185,Fetal Imaging,1912
+1188,Ultrasound,231
+1192,FRCS Trauma & Orthopaedics,637
+1194,Abdominal and Urogenital MRI,1912
+1196,Pulmonary Embolism,2581
+1199,Cancer and Oncology,2577
+1203,Pediatric Transplantation,1002
+1210,pediatric radiologist,1912
+1212,Womens Health Palliative Care,2572
+1214,Cardiovascular Pharmacology,2561
+1216,pediatrics urology,2709
+1219,Genetics of Heart Vascular Disease,2561
+1220,Pediatric orthopaedic,2621
+1226,Molecular and Cellular Cardiology,8
+1230,Cardiac Toxicity,8
+1231,pediatric genetics,1904
+1232,Cardiovascular Devices,2561
+1237,Nutrition and Food safety,2652
+1238,Dietary Nutrition for chronic diseases,2553
+1241,Clinical Nutrition,2553
+1242,Community nutrition and public health,2553
+1245,Gastroenterology & Hepatology,2567
+1246,Critical Care,2564
+1248,Clinical Immunology,889
+1254,Tropical Medicine and Infectious Diseases,2574
+1257,Cardio Vascular Pharmacology,2561
+1262,Clinical and Medical Toxicology,2642
+1265,Forensic Toxicology,924
+1269,Food and Nutritional Toxicology,2553
+1286,Orthopedics Surgery,637
+1293,Colorectal Cancer,2577
+1294,Lung Cancer,2581
+1300,Surgery and Anesthesia,81
+1305,Cardiac Surgeon,182
+1306,Valvular Disease,8
+1314,Endocrinologists,2606
+1315,Gynaecology,231
+1316,Obstetricians,231
+1318,Anaesthesiology,81
+1323,Dementia,2568
+1328,Rectal cancer,2577
+1329,Sports imaging,1912
+1330,Neuroradiology Pearls and Pitfalls,1037
+1331,Paediatric neuroradiology,1037
+1332,Sports Medicine,2673
+1336,Digestive Surgery,68
+1337,Peditrics,65
+1338,Euro Peditarics,65
+1339,Pediatrics Nutrition,2653
+1342,Mammography,2576
+1348,general pediatricians,65
+1349,general surgeons,68
+1350,pediatric GI,998
+1351,adult GI,2567
+1352,pediatric surgeons,65
+1353,pediatric residents,65
+1354,pediatric GI fellows,998
+1362,Alzheimer disease,2678
+1363,osteoarthritis,2582
+1365,Cardiovascular Nanomedicine,2561
+1371,aesthetic gynecology,2607
+1372,Obgyn Ultrasonography,231
+1373,Clinical Gynecology,231
+1375,Fetal Medicine,2603
+1381,paediatrics,65
+1385,Pediatric Neurology,2644
+1386,General Pediatrics,65
+1420,Radiation Oncologists,2696
+1421,cardiovascular disease prevention,2561
+1422,Rheumatologists,2582
+1424,Vascular and Endovascular Surgery,2561
+1425,Neurology and Neurosurgery,1065
+1428,Radiology & Oncology,2696
+1430,Paediatric Radiology,2695
+1431,Cardiology Radiology,2698
+1434,MSK,1912
+1436,Orthopaedics,637
+1438,Gynaecologist,231
+1440,Cancer & Oncology,2577
+1442,Neonatology and Perinatology,2643
+1443,Pediatric Infectious Diseases,2650
+1444,wound healing,82
+1448,Otolaryngology -- all areas,43
+1450,Parathyroid Disease,2566
+1452,inrwenal medicine,626
+1453,orthopedic,637
+1456,Multiple Sclerosis,2678
+1460,Medical Genetics,2592
+1461,Anesthesiology,81
+1462,Pain Management,2631
+1465,Medical Genetics,2592
+1467,Neurocritical Care,2593
+1567,Cardiology Pharmacy,8
+1569,Critical Care Pharmacy,2564
+1572,Nutrition Support Pharmacy,2553
+1590,Radiology Chiropractic,1037
+1593,General Otolaryngology,43
+1598,Point-of-Care Ultrasound,231
+1600,Skin Diseases and conditions,82
+1602,Cosmetic Surgery,70
+1608,Atopic dermatology,2544
+1609,Diet & Nutritional Supplement for Healthy Skin,2553
+1611,Radiologist,1912
+1612,OB-GYN Ultrasound,231
+1613,Anti Aging Medicine,230
+1614,AcuteCare,2564
+1616,Pulmonary Rehabilitation,2581
+1620,Family Medicine Physicians,71
+1634,Gastroenterologie,2567
+1638,Gynecological Minimal Invasive Surgery,2607
+1647,Vascular,2561
+1648,Phlebology,2706
+1651,Intensive Care,2564
+1657,Fetal Therapy,2603
+1663,Hepatobiliary,68
+1665,Nutrition in health & disease,2652
+1667,Dermato Therapeutics,2544
+1676,Renal care,2578
+1677,Nephrolithiasis,63
+1678,Clinical Nephrology,2578
+1680,Chronic Kidney Disease,2578
+1684,Bladder Cancer,63
+1686,Hematuria,63
+1695,Spine,637
+1698,Anesthesia,81
+1699,Pediatric Surgery,2701
+1700,Plastic and Reconstructive Surgery,2665
+1701,surgery,68
+1702,anesthesia,81
+1704,surgery,68
+1705,surgery,68
+1706,surgery,68
+1708,EXERCISE MEDICINE,2662
+1711,Gynecologist,231
+1714,Psychiatry and Psychopharmacology,2681
+1720,Fertility Preservation,2606
+1722,Fertility,2606
+1727,Interventional Orthobiological Physician,1463
+1735,Pain Education,2631
+1738,Platelet Rich Plasma Therapies,1463
+1751,Multiple Myeloma,2577
+1752,Acute Pain Management,2631
+1753,Behavioral Pain Management,2631
+1754,Chronic Pain Syndromes,2631
+1756,Interventional Pain Management,2631
+1764,Diving and Marine Medicine,2674
+1769,Food and Nutrition,2553
+1774,Child Nutrition,2653
+1786,Pedatrics,65
+1803,Gynaecolog,231
+1819,Medical imaging,1912
+1826,Orthopedic research,637
+1827,Musculoskeletal Disorders,637
+1834,Pneumology,2581
+1841,Neonatology,2643
+1842,cardiopulmonary bypass,2581
+1855,Cardiology,8
+1863,MSK trauma,637
+1866,Uro,63
+1867,Mens Health,63
+1871,Cardiovascular Diseases,2561
+1902,Clinical Biochemical Genetics,2590
+1903,Clinical Cytogenetics and Genomics,1904
+1904,Clinical Genetics and Genomics,1904
+1905,Clinical Molecular Genetics and Genomics,2591
+1912,Diagnostic Radiology,1912
+1915,Aerospace Medicine,230
+1916,Pathology - Anatomic/Pathology - Clinical,2633
+1917,Pathology - Anatomic,2632
+1918,Pathology - Clinical,2635
+1919,MOHS Micrographic Surgery,1919
+1922,Child and Adolescent Neurology,1023
+1923,Neurophysiology,1024
+1927,Otolaryngic Allergy,43
+1928,Anatomic Pathology,2632
+1929,Clinical Pathology,2635
+1930,Laboratory Medicine,2636
+1931,Forensic Pathology,2637
+1932,Aesthetic Education,81
+1934,Proctology,2577
+1935,Urological Surgery,63
+1966,Pediatric psychiatry,1023
+1967,Pediatric Psychiatry,1023
+1968,Orthopaedic surgeons,637
+1971,ortho,637
+1974,Stem Cell Transplantation,2569
+1981,Applied Psychology,981
+1985,Abdominal Trauma CT,1912
+1987,Pain Therapeutics,2631
+1989,General Gynaecology,231
+1990,Gynaecologic Oncology,2600
+1993,Infertility and Pregnancy Complications,2606
+2023,Pediatricians,65
+2051,Rheumatology,2582
+2062,Neuroradiologist,1037
+2076,Infertility,2606
+2082,Pediatric Hospital Medicine,2655
+2085,Adolescent Medicine,930
+2089,Radiation Protection,2696
+2092,oncology,2577
+2094,radiologists,1912
+2095,Acute Neuroradiology,1037
+2096,Abdo torax radiologist,1912
+2097,General Neuroradiology LEVEL II,1037
+2098,Abdo Thorax Radiologist,1912
+2106,Pain,2536
+2107,Hemato-Oncology,2649
+2110,Neurosurgery and Spine,1065
+2111,Neuromuscular Disorders,2678
+2112,Paediatric Neurology and Epilepsy,2644
+2120,Gynecologic Surgeons,231
+2121,Neurological Disorders,2678
+2124,Epilepsy and Seizures,2678
+2125,Neuroimaging,1912
+2139,Retina,2613
+2143,NeuroOphthalmology,100
+2144,General Ophthalmology,100
+2150,physiatry,1463
+2159,Neuro Surgery,68
+2160,Neuro-Interventionist,68
+2162,Non Invasive Cosmetic Gynecology,2607
+2168,OBGYN,231
+2169,Obstetrics and OBGYN,231
+2172,Respiratory Medicine,2581
+2177,Neonatology,2643
+2182,Emergency Medicine,2
+2188,digital pathology,80
+2195,pulmonary,2581
+2204,Cardiac Imaging,1912
+2222,endocrinologist,2606
+2223,Obesity and Metabolic Diseases,2566
+2229,Wound Infection and Dermatology,1919
+2234,Geriatric Dementia,2568
+2235,Geriatric Psychiatry,1028
+2240,Geriatric and Geriatric Medicine,2568
+2244,Acute Myeloid Leukemia,2569
+2246,Allogeneic Stem Cell Transplantation,2569
+2247,Acute Lymphoblastic Leukemia,2577
+2252,Pulmonary Hypertension,2581
+2253,Pulmonary Hypertension & CHD,2581
+2254,Catheter Intervention,2575
+2279,ANATOMICAL PATHOLOGY,2632
+2285,Obesity-Induced Lymphedema,2706
+2286,Pediatrics,65
+2287,Pediatrician,65
+2288,Retinal Diseases,100
+2289,Hand & Upper Extremity Surgery & Rehabilitation,637
+2292,Neonatal,2643
+2293,Allergy and Clinical Immunology,889
+2294,Pediatric Gastroenterological,998
+2295,Nutrition and Liver Disorders,2652
+2301,Lasers,68
+2318,Dermal Fillers,1919
+2320,Endocrine,2566
+2322,Cardiovascular,2561
+2325,Neuro Physio,1024
+2328,Allergic Rhinitis Diagnosis,889
+2355,Cancer Immunotherapy,2577
+2362,Sports Medicine and Musculoskeletal MR Lectures,2683
+2365,Endocrine Surgery,2606
+2371,General Surgery and its Specialities,68
+2376,Prevention,230
+2384,Abdominal wall reconstruction,68
+2394,Geriatrics and Gerontology,2568
+2396,Dermatology and Plastic Surgery,1919
+2401,Pediatric Oncology,2649
+2402,Pediatrics,65
+2403,Neurology,2678
+2405,Radiologists,1912
+2416,Anesthelogist,81
+2419,Pediatrics,65
+2422,Spinal Disorders,637
+2423,Clinical and Interventional Cardiology,2575
+2424,Cardio-thoracic,182
+2426,Cardiomyopathies,8
+2429,Pediatric Cardiology,280
+2431,Cardiac Imaging,1912
+2432,Cardiac Transplantation,182
+2433,Pediatric Critical Care,2647
+2434,Cardiac Intensive Care Unit,2564
+2452,Laryngology,43
+2456,Ear Disorders,43
+2457,ENT Infectious Diseases,2574
+2459,Facial Plastic Surgery,2625
+2466,Cancer Prevention & Therapy,230
+2476,Rhinoplasty,43
+2484,Women Nutrition,2553
+2490,Neonatology and Pediatric Intensive Care,2643
+2491,general pediatrics,65
+2499,Asthma,2581
+2504,Gynecology Oncology,2600
+2510,Anxiety,2681
+2513,Orthopaedic,637
+2514,Surgical,68
+2515,Hematology and Oncology,2649
+2516,Gastroenterology and Hepatology,2567
+2517,Pulmonary and Intensive Care,2581
+2522,Gerontology and Geriatric Palliative Care,2572
+2525,Transplant Nephrology,2578
+2526,Hypertensive Nephrology,2578
+2529,Urology,63
+2540,Neurocritical Care,2540
+2566,Endocrinology-Diabetes and Metabolism,2566
+2568,Geriatric Medicine,2568
+2571,Hepatology,2571
+2577,Medical Oncology,2577
+2582,Rheumatology,2582
+2610,Neuro-ophthalmology,2610
+2656,Brain Injury Medicine,2656
+2658,Neuromuscular Medicine,2658
+2676,Behavioral Neurology & Neuropsychiatry,2676
+2678,Neurology,2678

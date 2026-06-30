@@ -1,0 +1,108 @@
+trigger_specialty_id,profession_parent_id,profession_type_id,notes
+878,171,,Dentist specialty (878) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+188,171,,Dentist specialty (188) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+358,171,,Dentist specialty (358) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+115,171,,Dentist specialty (115) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+1956,171,,Dentist specialty (1956) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+357,171,,Dentist specialty (357) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+536,171,,Dentist specialty (536) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+367,171,,Dentist specialty (367) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+359,171,,Dentist specialty (359) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+1126,171,,Dentist specialty (1126) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+811,171,,Dentist specialty (811) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+352,171,,Dentist specialty (352) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+1565,171,,Dentist specialty (1565) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+354,171,,Dentist specialty (354) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+1484,169,,Nursing specialty (1484) → move to Nursing (profession 169); profession_type_id set to NULL
+844,169,,Nursing specialty (844) → move to Nursing (profession 169); profession_type_id set to NULL
+493,169,,Nursing specialty (493) → move to Nursing (profession 169); profession_type_id set to NULL
+1532,169,,Nursing specialty (1532) → move to Nursing (profession 169); profession_type_id set to NULL
+1483,169,,Nursing specialty (1483) → move to Nursing (profession 169); profession_type_id set to NULL
+1498,169,,Nursing specialty (1498) → move to Nursing (profession 169); profession_type_id set to NULL
+790,169,,Nursing specialty (790) → move to Nursing (profession 169); profession_type_id set to NULL
+796,169,,Nursing specialty (796) → move to Nursing (profession 169); profession_type_id set to NULL
+1948,169,,Nursing specialty (1948) → move to Nursing (profession 169); profession_type_id set to NULL
+1515,169,,Nursing specialty (1515) → move to Nursing (profession 169); profession_type_id set to NULL
+829,169,,Nursing specialty (829) → move to Nursing (profession 169); profession_type_id set to NULL  
+1195,169,,Nursing specialty (1195) → move to Nursing (profession 169); profession_type_id set to NULL
+859,169,,Nursing specialty (859) → move to Nursing (profession 169); profession_type_id set to NULL
+846,169,,Nursing specialty (846) → move to Nursing (profession 169); profession_type_id set to NULL
+861,169,,Nursing specialty (861) → move to Nursing (profession 169); profession_type_id set to NULL
+875,169,,Nursing specialty (875) → move to Nursing (profession 169); profession_type_id set to NULL
+842,169,,Nursing specialty (842) → move to Nursing (profession 169); profession_type_id set to NULL
+849,169,,Nursing specialty (849) → move to Nursing (profession 169); profession_type_id set to NULL
+855,169,,Nursing specialty (855) → move to Nursing (profession 169); profession_type_id set to NULL
+596,169,,Nursing specialty (596) → move to Nursing (profession 169); profession_type_id set to NULL
+837,169,,Nursing specialty (837) → move to Nursing (profession 169); profession_type_id set to NULL
+1539,169,,Nursing specialty (1539) → move to Nursing (profession 169); profession_type_id set to NULL
+1581,779,,Neuro-optometry → move to Optometry (profession 779); profession_type_id set to NULL
+1575,,,Pharmacotherapy → move to Unknown category as these are not Physicians but dont know where to put them
+292,,,Physiology and Biophysics	→ move to Unknown category as these are not Physicians but dont know where to put them
+528,,,Biomechanics	→ move to Unknown category as these are not Physicians but dont know where to put them
+721,,,Physical Therapy → move to Unknown category as these are not Physicians but dont know where to put them
+789,,,Remedial → move to Unknown category as these are not Physicians but dont know where to put them
+189,,,Pharmacy and Medicine → move to Unknown category as these are not Physicians but dont know where to put them
+1566,,,Ambulatory Care Pharmacy → move to Unknown category as these are not Physicians but dont know where to put them
+2086,,,Physiology → move to Unknown category as these are not Physicians but dont know where to put them
+827,,,Embryology → move to Unknown category as these are not Physicians but dont know where to put them
+1500,,,Infusion Nurse → move to Unknown category as these are not Physicians but dont know where to put them
+785,,,Respiratory Therapy → move to Unknown category as these are not Physicians but dont know where to put them    
+835,,,Family Nursing → move to Unknown category as these are not Physicians but dont know where to put them
+802,,,Counselor → move to Unknown category as these are not Physicians but dont know where to put them
+801,,,Social Worker Clinical → move to Unknown category as these are not Physicians but dont know where to put them
+1589,,,Pediatric & Family Chiropractors → move to Unknown category as these are not Physicians but dont know where to put them
+703,,,Audiology → move to Unknown category as these are not Physicians but dont know where to put them
+674,,,Nanotechnology → move to Unknown category as these are not Physicians but dont know where to put them
+634,,,Food Chemistry → move to Unknown category as these are not Physicians but dont know where to put them 
+720,,,Occupational Therapy → move to Unknown category as these are not Physicians but dont know where to put them
+803,,,Massage Therapist → move to Unknown category as these are not Physicians but dont know where to put them
+402,,,Orthodontics → move to Unknown category as these are not Physicians but dont know where to put them
+832,,,Kinesiology → move to Unknown category as these are not Physicians but dont know where to put them
+1888,,,Nutritionist → move to Unknown category as these are not Physicians but dont know where to put them
+814,,,Chiropractic  → move to Unknown category as these are not Physicians but dont know where to put them
+1576,,,Psychiatric Pharmacy	 → move to Unknown category as these are not Physicians but dont know where to put them
+799,,,Occupational Therapy Assistant → move to Unknown category as these are not Physicians but dont know where to put them
+1587,,,Neuromusculoskeletal Medicine Chiropractors → move to Unknown category as these are not Physicians but dont know where to put them
+813,,,Acupuncture → move to Unknown category as these are not Physicians but dont know where to put them
+1161,,,Rehabilitation → move to Unknown category as these are not Physicians but dont know where to put them
+702,,,microbiology → move to Unknown category as these are not Physicians but dont know where to put them
+1741,,,chemistry → move to Unknown category as these are not Physicians but dont know where to put them
+2481,,,Medical → move to Unknown category as these are not Physicians but dont know where to put them
+2080,,,Neurorehabiltation → move to Unknown category as these are not Physicians but dont know where to put them
+826,,,Basic Science → move to Unknown category as these are not Physicians but dont know where to put them
+805,,,Naturopathy → move to Unknown category as these are not Physicians but dont know where to put them
+869,,,Respiratory Therapists → move to Unknown category as these are not Physicians but dont know where to put them
+683,,,Wellness → move to Unknown category as these are not Physicians but dont know where to put them
+798,,,Physical Therapy Assistant → move to Unknown category as these are not Physicians but dont know where to put them
+804,,,Art Therapist → move to Unknown category as these are not Physicians but dont know where to put them
+585,,,Pharmacy → move to Unknown category as these are not Physicians but dont know where to put them
+616,,,Medical Physics → move to Unknown category as these are not Physicians but dont know where to put them
+800,,,Marriage and Family Therapist → move to Unknown category as these are not Physicians but dont know where to put them
+522,,,Clinical Hypnosis → move to Unknown category as these are not Physicians but dont know where to put them
+714,,,Social Work → move to Unknown category as these are not Physicians but dont know where to put them
+563,,,Leadership → move to Unknown category as these are not Physicians but dont know where to put them
+152,,,Practice Management → move to Unknown category as these are not Physicians but dont know where to put them
+808,,,Hand Therapy → move to Unknown category as these are not Physicians but dont know where to put them
+822,,,Phlebotomy → move to Unknown category as these are not Physicians but dont know where to put them
+535,,,Bioactive Compounds → move to Unknown category as these are not Physicians but dont know where to put them
+814,,,Chiropractic Neurology → move to Unknown category as these are not Physicians but dont know where to put them
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
