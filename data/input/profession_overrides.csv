@@ -13,6 +13,10 @@ trigger_specialty_id,profession_parent_id,profession_type_id,notes
 352,171,,Dentist specialty (352) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
 1565,171,,Dentist specialty (1565) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
 354,171,,Dentist specialty (354) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+353,171,,Dentist specialty (353) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+2448,171,,Dentist specialty (2448) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+833,171,,Dentist specialty (833) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
+1564,171,,Dentist specialty (1564) → move to Dentists (profession 171); profession_type_id set to NULL (no MD/DO for Dentists)
 1484,169,,Nursing specialty (1484) → move to Nursing (profession 169); profession_type_id set to NULL
 844,169,,Nursing specialty (844) → move to Nursing (profession 169); profession_type_id set to NULL
 493,169,,Nursing specialty (493) → move to Nursing (profession 169); profession_type_id set to NULL
@@ -35,7 +39,41 @@ trigger_specialty_id,profession_parent_id,profession_type_id,notes
 596,169,,Nursing specialty (596) → move to Nursing (profession 169); profession_type_id set to NULL
 837,169,,Nursing specialty (837) → move to Nursing (profession 169); profession_type_id set to NULL
 1539,169,,Nursing specialty (1539) → move to Nursing (profession 169); profession_type_id set to NULL
+1411,169,,Nursing specialty (1411) → move to Nursing (profession 169); profession_type_id set to NULL
+2359,169,,Nursing specialty (2359) → move to Nursing (profession 169); profession_type_id set to NULL
+857,169,,Nursing specialty (857) → move to Nursing (profession 169); profession_type_id set to NULL
+1511,169,,Nursing specialty (1511) → move to Nursing (profession 169); profession_type_id set to NULL
+1159,169,,Nursing specialty (1159) → move to Nursing (profession 169); profession_type_id set to NULL
+1490,169,,Nursing specialty (1490) → move to Nursing (profession 169); profession_type_id set to NULL
+1475,169,,Nursing specialty (1475) → move to Nursing (profession 169); profession_type_id set to NULL
+1477,169,,Nursing specialty (1477) → move to Nursing (profession 169); profession_type_id set to NULL
+838,169,,Nursing specialty (838) → move to Nursing (profession 169); profession_type_id set to NULL
+1949,169,,Nursing specialty (1949) → move to Nursing (profession 169); profession_type_id set to NULL
+1479,169,,Nursing specialty (1479) → move to Nursing (profession 169); profession_type_id set to NULL
+848,169,,Nursing specialty (848) → move to Nursing (profession 169); profession_type_id set to NULL
+1541,169,,Nursing specialty (1541) → move to Nursing (profession 169); profession_type_id set to NULL
+1512,169,,Nursing specialty (1512) → move to Nursing (profession 169); profession_type_id set to NULL
+840,169,,Nursing specialty (840) → move to Nursing (profession 169); profession_type_id set to NULL
+1954,169,,Nursing specialty (1954) → move to Nursing (profession 169); profession_type_id set to NULL
+1518,169,,Nursing specialty (1518) → move to Nursing (profession 169); profession_type_id set to NULL
+1513,169,,Nursing specialty (1513) → move to Nursing (profession 169); profession_type_id set to NULL
+1521,169,,Nursing specialty (1521) → move to Nursing (profession 169); profession_type_id set to NULL
+851,169,,Nursing specialty (851) → move to Nursing (profession 169); profession_type_id set to NULL
+1955,169,,Nursing specialty (1955) → move to Nursing (profession 169); profession_type_id set to NULL
+834,169,,Nursing specialty (834) → move to Nursing (profession 169); profession_type_id set to NULL
+845,169,,Nursing specialty (845) → move to Nursing (profession 169); profession_type_id set to NULL
+841,169,,Nursing specialty (841) → move to Nursing (profession 169); profession_type_id set to NULL
+836,169,,Nursing specialty (836) → move to Nursing (profession 169); profession_type_id set to NULL
+839,169,,Nursing specialty (839) → move to Nursing (profession 169); profession_type_id set to NULL
+854,169,,Nursing specialty (854) → move to Nursing (profession 169); profession_type_id set to NULL
+856,169,,Nursing specialty (856) → move to Nursing (profession 169); profession_type_id set to NULL
+852,169,,Nursing specialty (852) → move to Nursing (profession 169); profession_type_id set to NULL
+853,169,,Nursing specialty (853) → move to Nursing (profession 169); profession_type_id set to NULL
+1945,169,,Nursing specialty (1945) → move to Nursing (profession 169); profession_type_id set to NULL
+1488,167,,Genetics Nurse → move to Nursing (profession 169); profession_type_id set to NULL
+1488,167,,Genetics Nurse → move to Nursing (profession 169); profession_type_id set to NULL
 1581,779,,Neuro-optometry → move to Optometry (profession 779); profession_type_id set to NULL
+1582,779,,Pediatric Optometry → move to Optometry (profession 779); profession_type_id set to NULL
 1575,,,Pharmacotherapy → move to Unknown category as these are not Physicians but dont know where to put them
 292,,,Physiology and Biophysics	→ move to Unknown category as these are not Physicians but dont know where to put them
 528,,,Biomechanics	→ move to Unknown category as these are not Physicians but dont know where to put them
@@ -86,6 +124,33 @@ trigger_specialty_id,profession_parent_id,profession_type_id,notes
 822,,,Phlebotomy → move to Unknown category as these are not Physicians but dont know where to put them
 535,,,Bioactive Compounds → move to Unknown category as these are not Physicians but dont know where to put them
 814,,,Chiropractic Neurology → move to Unknown category as these are not Physicians but dont know where to put them
+816,,,Emergency Medical Technician → move to Unknown category as these are not Physicians but dont know where to put them
+1960,,,Chiropractic Neurology → move to Unknown category as these are not Physicians but dont know where to put them
+2205,,,Community Health → move to Unknown category as these are not Physicians but dont know where to put them
+1592,,,Sports Chiropractor → move to Unknown category as these are not Physicians but dont know where to put them
+580,,,Health Informatics → move to Unknown category as these are not Physicians but dont know where to put them
+1379,,,Biomedical Engineering → move to Unknown category as these are not Physicians but dont know where to put them
+1526,,,Poison Information Specialist → move to Unknown category as these are not Physicians but dont know where to put them
+615,,,Hospital Safety → move to Unknown category as these are not Physicians but dont know where to put them
+530,,,Risk Management and Medical Negligence → move to Unknown category as these are not Physicians but dont know where to put them
+1567,,,Cardiology Pharmacy → move to Unknown category as these are not Physicians but dont know where to put them
+633,,,Medical Tourism → move to Unknown category as these are not Physicians but dont know where to put them
+831,,,Physician Well-Being → move to Unknown category as these are not Physicians but dont know where to put them
+817,,,Music Therapy → move to Unknown category as these are not Physicians but dont know where to put them
+568,,,Quality Management → move to Unknown category as these are not Physicians but dont know where to put them
+820,,,Orthotics → move to Unknown category as these are not Physicians but dont know where to put them
+819,,,Prosthetics → move to Unknown category as these are not Physicians but dont know where to put them
+575,,,Rejuvenation Biotechnology → move to Unknown category as these are not Physicians but dont know where to put them
+499,,,CVP Research → move to Unknown category as these are not Physicians but dont know where to put them
+782,,,Nuclear Pharmacy → move to Unknown category as these are not Physicians but dont know where to put them
+2530,,,Legal Medicine → move to Unknown category as these are not Physicians but dont know where to put them
+2117,,,Paramedic → move to Unknown category as these are not Physicians but dont know where to put them
+1759,,,Pharmacotherapy → move to Unknown category as these are not Physicians but dont know where to put them
+556,,,Not in DB → move to Unknown category as these are not Physicians but dont know where to put them
+397,,,Not in DB → move to Unknown category as these are not Physicians but dont know where to put them
+686,,,Psychopharmacology → move to Psychiatry (profession 167); profession_type_id set to NULL
+
+
 
 
 

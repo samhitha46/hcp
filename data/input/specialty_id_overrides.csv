@@ -153,3 +153,36 @@ original_id,mapped_id,parent_id,notes
 709,2670,230,Occupational health → Occupational Medicine (sub of Preventive Medicine 230)
 2292,2643,65,Neonatal → Neonatal - Perinatal Medicine (sub of Pediatrics 65)
 572,2561,626,Echocardiography → Cardiovascular Disease (sub of Internal Medicine 626)
+797,230,,Herbal medicine → Preventive Medicine
+505,2640,65,Pediatrics Child Abuse → Child Abuse Pediatrics (sub of Pediatrics 65)
+2376,230,,Prevention → Preventive Medicine
+1918,2635,80,Pathology - Clinical → Clinical Pathology (sub of Pathology 80)
+680,65,,peadiatric → Pediatrics
+795,1463,,Non-Surgical Knee → Physical Medicine & Rehabilitation
+1057,626,,Urgent Care → Internal Medicine
+336,2632,80,Urologic Pathology → Anatomic Pathology (sub of Pathology 80)
+576,82,,Venerology → Dermatology
+821,2686,1912,Sonography → Diagnostic Ultrasound (sub of Diagnostic Radiology 1912)
+684,981,80,Haematopathology → Hematopathology (sub of Pathology 80)
+1152,2581,626,Pulmonology → Pulmonary Disease (sub of Internal Medicine 626)
+1590,1037,1912,Radiology Chiropractic → Neuroradiology (sub of Diagnostic Radiology 1912)
+1903,1904,,Clinical Cytogenetics and Genomics → Clinical Genetics and Genomics
+1068,68,,Endoscopic surgery → Surgery
+1025,2681,906,Consultation Liaison Psychiatry → Psychiatry (sub of Psychiatry and Neurology 906)
+984,2637,80,Pathology Forensic → Pathology - Forensic (sub of Pathology 80)
+335,979,80,Clinical Cytopathology → Cytopathology (sub of Pathology 80)
+1041,68,,Complex General Surgical Oncology → Surgery
+2525,2578,626,Transplant Nephrology → Nephrology (sub of Internal Medicine 626)
+2527,2578,626,Interventional Nephrology → Nephrology (sub of Internal Medicine 626)
+970,2606,231,Infertility → Reproductive Endocrinology and Infertility (sub of Obstetrics and Gynecology 231)
+870,2583,626,Sleep Physicians → Sleep Medicine (sub of Internal Medicine 626)
+1066,1065,,Brain surgery → Neurological Surgery
+824,63,,Andrology → Urology
+825,2606,231,Assisted Reproduction → Reproductive Endocrinology and Infertility (sub of Obstetrics and Gynecology 231)
+649,1912,,diagnostic and interventional radiology → Diagnostic Radiology
+660,2533,81,Addiction → Addiction Medicine (sub of Anesthesiology 81)
+673,1024,906,"Neurophysiology, Movement disorders. → Clinical Neurophysiology (sub of Psychiatry and Neurology 906)"
+1342,2576,626,Mammography → Magnetic Resonance Imaging (sub of Internal Medicine 626)
+2526,2578,626,Hypertensive Nephrology → Nephrology (sub of Internal Medicine 626)
+757,2574,626,Infectious diseases → Infectious Disease (sub of Internal Medicine 626)
+700,68,,Breast Surgery → Surgery

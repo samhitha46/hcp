@@ -87,6 +87,7 @@ speciality_id,name,New Speciality id
 322,Endocrinology,2566
 334,Cytopathology,979
 335,Clinical Cytopathology,979
+336,Urologic Pathology,2632
 341,Bioinformatics,2667
 379,Haematology,2569
 384,Public Health,2672
@@ -159,12 +160,16 @@ speciality_id,name,New Speciality id
 637,Orthopedic Surgery,637
 639,Neonatology,2643
 645,Cleft Lip and palate Surgery,70
+649,diagnostic and interventional radiology,1912
 650,Nuclear Cardiology,2595
+660,Addiction,2533
 667,Hand Surgery,2618
 668,Arthroscopy,637
+673,"Neurophysiology, Movement disorders",1024
 676,Nephrology,2578
 680,peadiatric,65
 682,Psychotherapy,2681
+684,Haematopathology,981
 685,Hematopathology,80
 700,Breast Surgery,68
 703,Public Health,2672
@@ -184,6 +189,7 @@ speciality_id,name,New Speciality id
 792,Oculoplastic Surgery,2615
 793,Age Management Medicine,230
 794,Functional Medicine,230
+795,Non-Surgical Knee,1463
 797,Herbal medicine,230
 806,Adult Medicine,626
 807,General Practice,626
@@ -709,6 +715,7 @@ speciality_id,name,New Speciality id
 2522,Gerontology and Geriatric Palliative Care,2572
 2525,Transplant Nephrology,2578
 2526,Hypertensive Nephrology,2578
+2527,Interventional Nephrology,2578
 2529,Urology,63
 2540,Neurocritical Care,2540
 2566,Endocrinology-Diabetes and Metabolism,2566
